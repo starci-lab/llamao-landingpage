@@ -35,7 +35,7 @@ export default function Home() {
       {/* Tree container */}
       {/* <div> */}
       {/* Left Tree Border - Above grass */}
-      <div className="absolute z-10 pointer-events-none w-[210%] -bottom-10 -left-[155%] md:w-[200%] md:-bottom-20 md:-left-[135%] lg:w-full lg:-bottom-28 lg:-left-[50%]">
+      <div className="absolute z-10 pointer-events-none w-[210%] -bottom-10 -left-[155%] md:w-[200%] md:-bottom-20 md:-left-[135%] lg:w-full lg:-bottom-28 lg:-left-[50%] 2xl:w-[70%] 2xl:-bottom-16 2xl:-left-[30%]">
         <Image
           src="/tree.svg"
           alt="Left tree"
@@ -48,7 +48,7 @@ export default function Home() {
       {/* </div> */}
 
       {/* Right Tree Border - Above grass */}
-      <div className="absolute z-10 pointer-events-none scale-x-[-1] w-[210%] -bottom-10 -right-[155%] md:w-[200%] md:-bottom-20 md:-right-[135%] lg:w-full lg:-bottom-28 lg:-right-[50%]">
+      <div className="absolute z-10 pointer-events-none scale-x-[-1] w-[210%] -bottom-10 -right-[155%] md:w-[200%] md:-bottom-20 md:-right-[135%] lg:w-full lg:-bottom-28 lg:-right-[50%] 2xl:w-[70%] 2xl:-bottom-16 2xl:-right-[30%]">
         <Image
           src="/tree.svg"
           alt="Right tree"
