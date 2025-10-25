@@ -16,7 +16,7 @@ export default function Home() {
           width={1440}
           height={961}
           quality={100}
-          className="w-full h-auto object-contain scale-[170%] -translate-y-40 md:scale-120 md:-translate-y-20"
+          className="w-full h-auto object-contain scale-[170%] -translate-y-40 md:scale-120 md:-translate-y-20 lg:-translate-y-10 xl:translate-y-8 xl:scale-100 2xl:translate-y-15"
           priority
         />
       </div>
@@ -64,7 +64,7 @@ export default function Home() {
           <Logo />
           <SocialMedias />
         </div>
-        <div className="flex flex-col items-center z-30 w-full mx-auto pb-16 md:pb-12 md:w-[80%] lg:w-[60%]">
+        <div className="flex flex-col items-center z-30 w-full mx-auto pb-16 md:pb-12 md:w-[80%] lg:w-[60%] xl:w-[40%] xl:pb-8">
           <Nobg />
         </div>
       </div>
