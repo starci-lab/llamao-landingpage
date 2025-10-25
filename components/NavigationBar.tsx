@@ -43,11 +43,11 @@ const NavigationBar = () => {
   const getMobileLinkClasses = (variant: NavVariant) => {
     switch (variant) {
       case "primary":
-        return "bg-[#B091FF] px-4 py-3 text-xs text-white";
+        return "bg-[#B091FF] px-4 py-3 text-white text-lg";
       case "cta":
-        return "inline-flex w-full items-center justify-center px-4 py-3 text-xs text-white uppercase bg-[url('/reward-pool-bg.svg')] bg-contain bg-center bg-no-repeat";
+        return "inline-flex w-full items-center justify-center px-4 py-5 text-lg text-white uppercase bg-[url('/reward-pool-bg.svg')] bg-contain bg-center bg-no-repeat";
       default:
-        return "text-xs text-gray-800";
+        return "text-lg text-gray-800";
     }
   };
   return (
@@ -123,8 +123,17 @@ const NavigationBar = () => {
         </ul>
 
         {isMenuOpen && (
-          <div className="absolute left-1/2 top-full mt-3 w-[calc(100vw-2.5rem)] max-w-[320px] -translate-x-1/2 md:hidden">
-            <div className="press-start-2p-regular flex flex-col gap-4 rounded-lg border-4 border-[#C1D8FF] bg-white/95 px-6 py-6 text-center shadow-[6px_6px_0_0_#C8B5F7]">
+          <div className="fixed -translate-x-1/2 left-1/2 w-screen h-auto bottom-0 md:hidden">
+            <Image
+              src="/nav-expand-mobile.svg"
+              alt=""
+              fill
+              objectFit=""
+              priority
+              aria-hidden
+              className="pointer-events-none w-full h-auto select-none object-contain"
+            />
+            <div className="press-start-2p-regular flex flex-col gap-18 px-6 py-6 text-center">
               {navLinks.map((link) => (
                 <a
                   key={link.href}

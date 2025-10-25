@@ -59,7 +59,7 @@ export default function Home() {
       </div>
 
       <div className="h-full flex flex-col justify-between w-[95%] mx-auto">
-        <div className="flex flex-col items-center mx-auto w-full mt-3 z-30">
+        <div className="flex flex-col items-center mx-auto w-full mt-3 z-40">
           <NavigationBar />
           <Logo />
           <SocialMedias />
