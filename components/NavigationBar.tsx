@@ -32,11 +32,11 @@ const NavigationBar = () => {
   const getDesktopLinkClasses = (variant: NavVariant) => {
     switch (variant) {
       case "primary":
-        return "text-white bg-[#B091FF] px-3 md:px-4 py-2 md:py-3 text-sm md:text-base lg:text-lg hover:bg-purple-700 transition-colors";
+        return "text-white bg-[#B091FF] py-2 px-2 lg:text-lg hover:bg-purple-700 transition-colors";
       case "cta":
-        return "relative inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 text-white text-sm md:text-base lg:text-lg uppercase transition-transform hover:scale-[1.03] active:scale-95 bg-[url('/reward-pool-bg.svg')] bg-contain bg-center bg-no-repeat";
+        return "relative inline-flex items-center justify-center px-6 py-3 text-white text-sm lg:text-lg uppercase transition-transform hover:scale-[1.03] active:scale-95 bg-[url('/reward-pool-bg.svg')] bg-contain bg-center bg-no-repeat";
       default:
-        return "text-gray-800 text-sm md:text-base lg:text-lg hover:text-purple-600 transition-colors";
+        return "text-[#21201E] text-sm md:text-base lg:text-lg hover:text-purple-600 transition-colors";
     }
   };
 
@@ -51,7 +51,7 @@ const NavigationBar = () => {
     }
   };
   return (
-    <nav className="relative z-40 flex justify-center w-full px-4">
+    <nav className="relative z-40 flex justify-center w-full px-4 lg:px-0">
       <div className="relative w-full 2xl:max-w-[1040px] min-h-[92px] grid mx-auto">
         {windowSize.width && windowSize.width >= 768 ? (
           <Image
@@ -109,7 +109,7 @@ const NavigationBar = () => {
           </button>
         </div>
 
-        <ul className="press-start-2p-regular relative z-10 hidden w-full flex-wrap items-center justify-center gap-4 px-6 py-3 lg:flex md:gap-6 md:px-8 md:py-4 lg:gap-8 lg:px-12">
+        <ul className="press-start-2p-regular relative z-10 hidden w-full flex-wrap items-center justify-center gap-4 lg:flex lg:gap-10">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a

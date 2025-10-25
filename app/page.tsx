@@ -35,7 +35,7 @@ export default function Home() {
       {/* Tree container */}
       {/* <div> */}
       {/* Left Tree Border - Above grass */}
-      <div className="absolute z-10 pointer-events-none w-[210%] -bottom-10 -left-[155%] md:w-[200%] md:-bottom-20 md:-left-[135%]">
+      <div className="absolute z-10 pointer-events-none w-[210%] -bottom-10 -left-[155%] md:w-[200%] md:-bottom-20 md:-left-[135%] lg:w-full lg:-bottom-28 lg:-left-[50%]">
         <Image
           src="/tree.svg"
           alt="Left tree"
@@ -48,7 +48,7 @@ export default function Home() {
       {/* </div> */}
 
       {/* Right Tree Border - Above grass */}
-      <div className="absolute z-10 pointer-events-none scale-x-[-1] w-[210%] -bottom-10 -right-[155%] md:w-[200%] md:-bottom-20 md:-right-[135%]">
+      <div className="absolute z-10 pointer-events-none scale-x-[-1] w-[210%] -bottom-10 -right-[155%] md:w-[200%] md:-bottom-20 md:-right-[135%] lg:w-full lg:-bottom-28 lg:-right-[50%]">
         <Image
           src="/tree.svg"
           alt="Right tree"
@@ -64,7 +64,7 @@ export default function Home() {
           <Logo />
           <SocialMedias />
         </div>
-        <div className="flex flex-col items-center z-30 w-full mx-auto pb-16 md:pb-12 md:w-[80%]  ">
+        <div className="flex flex-col items-center z-30 w-full mx-auto pb-16 md:pb-12 md:w-[80%] lg:w-[60%]">
           <Nobg />
         </div>
       </div>
