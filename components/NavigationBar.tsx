@@ -16,7 +16,6 @@ type NavLink = {
 
 const NavigationBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const windowSize = useWindowSize();
 
   // Initialize activeHash from URL
   const [activeHash, setActiveHash] = useState(() => {
@@ -93,17 +92,22 @@ const NavigationBar = () => {
       <nav className="relative z-50 flex justify-center w-full px-4 lg:px-0">
         <div className="relative w-full 2xl:max-w-[1040px] min-h-[92px] z-50 grid mx-auto">
           <Image
-            src={
-              windowSize.width && windowSize.width < 768
-                ? "/nav-background-mobile.svg"
-                : "/nav-background.svg"
-            }
+            src={"/nav-background.svg"}
             alt=""
             fill
             objectFit="contain"
             loading="lazy"
             aria-hidden
-            className="pointer-events-none select-none object-contain z-40"
+            className="pointer-events-none select-none object-contain z-40 hidden md:block"
+          />
+          <Image
+            src={"/nav-background-mobile.svg"}
+            alt=""
+            fill
+            objectFit="contain"
+            loading="lazy"
+            aria-hidden
+            className="pointer-events-none select-none object-contain z-40 md:hidden"
           />
 
           <div className="press-start-2p-regular relative z-50 flex items-center justify-between px-4 py-3 lg:hidden">
@@ -202,9 +206,9 @@ const NavigationBar = () => {
           )}
         </div>
       </nav>
-      {activeHash !== "#home" && (
+      {activeHash !== "#home" && !isMenuOpen && (
         <>
-          <div className="fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-[41%] z-50 flex flex-col gap-5">
+          <div className="absolute left-1/2 -translate-x-1/2 top-[15%] 2xl:top-[50%] w-[90%] lg:w-auto lg:-translate-y-[41%] z-50 flex flex-col gap-5">
             {activeHash === "#about" && <About />}
             {activeHash === "#lore" && <Lore />}
             {activeHash === "#traits" && <Traits />}
@@ -219,7 +223,7 @@ const NavigationBar = () => {
               </div>
             )}
           </div>
-          <div className="fixed z-50 -right-16 -bottom-[10%]">
+          <div className="fixed z-50 -right-16 -bottom-[10%] hidden lg:block">
             <Image
               src={"/llamao_walk.gif"}
               alt="llamaowalk"

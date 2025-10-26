@@ -6,13 +6,14 @@ const Traits = () => {
   return (
     <Alert
       borderColor="#1E3445"
-      className="2xl:max-w-[300px] max-h-[80%] flex flex-col justify-between p-0 gap-0"
+      className="max-w-[430px] max-h-[80%] mx-auto flex flex-col justify-between p-0 gap-0"
     >
       <Image
         src="/llamao-gen.png"
         alt="llmaogen"
         width={423.61}
         height={423.61}
+        className="w-full h-auto"
       />
       <div className="bg-[#E8DEFF] w-full px-3 py-1 pb-4">
         <p className="silkscreen-regular text-center tracking-tight text-2xl text-[#2245C5]">
@@ -32,17 +33,13 @@ const Traits = () => {
             size={"sm"}
             className="w-[46%] bg-[#8280FF] hover:bg-[#FF2A31] hover:scale-105 hover:brightness-110 transition-all duration-200"
           >
-            <p className="tracking-tighter pixelify-sans-500 text-lg">
-              Download
-            </p>
+            <p className="pixelify-sans-500 text-lg">Download</p>
           </Button>
           <Button
             size={"sm"}
             className="w-[46%] bg-[#8280FF] hover:bg-[#FF2A31] hover:scale-105 hover:brightness-110 transition-all duration-200"
           >
-            <p className="tracking-tighter pixelify-sans-500 text-lg">
-              Share on X
-            </p>
+            <p className="pixelify-sans-500 text-lg">Share on X</p>
           </Button>
         </div>
         <p className="silkscreen-regular text-center tracking-tight text-2xl mt-4 text-[#2245C5]">
@@ -53,9 +50,7 @@ const Traits = () => {
             size={"sm"}
             className="w-[46%] bg-[#DD1A21] hover:bg-[#FF2A31] hover:scale-105 hover:brightness-110 transition-all mt-2 duration-200"
           >
-            <p className="tracking-tighter pixelify-sans-500 text-lg">
-              GET IT NOW
-            </p>
+            <p className="pixelify-sans-500 text-lg">GET IT NOW</p>
           </Button>
         </div>
       </div>

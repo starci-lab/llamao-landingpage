@@ -2,13 +2,13 @@ import { Alert, AlertDescription } from "./ui/8bit/alert";
 
 const About = () => {
   return (
-    <Alert borderColor="#6043AF" className="2xl:w-[1024px]">
-      <AlertDescription className="pixelify-sans-500 text-2xl text-justify text-black">
+    <Alert borderColor="#6043AF" className="lg:w-5xl">
+      <AlertDescription className="pixelify-sans-500 text-lg md:text-xl lg:text-2xl lg:text-justify text-black">
         <p className="">
           Llamao-ism is the first and finest ideology born on Monad — rooted in
           one simple principle:
         </p>
-        <ul className="list-disc 2xl:ml-12 my-8">
+        <ul className="list-disc ml-8 2xl:ml-12 my-8">
           <li>
             <p>Create real value, stay chill, no matter the market.</p>
           </li>
@@ -20,9 +20,8 @@ const About = () => {
             </p>
           </li>
         </ul>
-        <p className="pixelify-sans-500 text-2xl">
-          {`Llamao-ism is not a cult. It’s a vibe, productive
-              collective.Welcome to the future of sustainable clout, only on
+        <p className="pixelify-sans-500 text-lg md:text-xl lg:text-2xl">
+          {`Llamao-ism is not a cult. It’s a vibe, productive collective. Welcome to the future of sustainable clout, only on
               Monad.`}
         </p>
       </AlertDescription>

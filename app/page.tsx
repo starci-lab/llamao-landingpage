@@ -8,8 +8,8 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="relative w-full h-screen overflow-hidden">
-      <div className="absolute inset-0 flex items-end justify-center -z-10">
+    <main className="relative w-full h-screen overflow-x-clip">
+      <div className="fixed inset-0 flex items-end justify-center -z-10">
         <Image
           src="/background.svg"
           alt="Background"
@@ -22,7 +22,7 @@ export default function Home() {
       </div>
 
       {/* Bottom Grass Border - Behind trees */}
-      <div className="absolute h-[200px] md:h-[170px] bottom-0 left-0 right-0 -z-10 pointer-events-none">
+      <div className="fixed h-[200px] md:h-[170px] bottom-0 left-0 right-0 -z-10 pointer-events-none">
         <Image
           src="/footertree.svg"
           alt="Bottom grass"
@@ -32,10 +32,7 @@ export default function Home() {
         />
       </div>
 
-      {/* Tree container */}
-      {/* <div> */}
-      {/* Left Tree Border - Above grass */}
-      <div className="absolute z-10 pointer-events-none w-[210%] -bottom-10 -left-[155%] md:w-[200%] md:-bottom-20 md:-left-[135%] lg:w-full lg:-bottom-28 lg:-left-[50%] 2xl:w-[70%] 2xl:-bottom-16 2xl:-left-[30%]">
+      <div className="fixed z-10 pointer-events-none w-[210%] -bottom-10 -left-[155%] md:w-[200%] md:-bottom-20 md:-left-[135%] lg:w-full lg:-bottom-28 lg:-left-[50%] 2xl:w-[70%] 2xl:-bottom-16 2xl:-left-[30%]">
         <Image
           src="/tree.svg"
           alt="Left tree"
@@ -45,10 +42,8 @@ export default function Home() {
           className="h-auto w-full object-cover"
         />
       </div>
-      {/* </div> */}
 
-      {/* Right Tree Border - Above grass */}
-      <div className="absolute z-10 pointer-events-none scale-x-[-1] w-[210%] -bottom-10 -right-[155%] md:w-[200%] md:-bottom-20 md:-right-[135%] lg:w-full lg:-bottom-28 lg:-right-[50%] 2xl:w-[70%] 2xl:-bottom-16 2xl:-right-[30%]">
+      <div className="fixed z-10 pointer-events-none scale-x-[-1] w-[210%] -bottom-10 -right-[155%] md:w-[200%] md:-bottom-20 md:-right-[135%] lg:w-full lg:-bottom-28 lg:-right-[50%] 2xl:w-[70%] 2xl:-bottom-16 2xl:-right-[30%]">
         <Image
           src="/tree.svg"
           alt="Right tree"
@@ -64,7 +59,7 @@ export default function Home() {
           <Logo />
           <SocialMedias />
         </div>
-        <div className="flex flex-col items-center z-30 w-full mx-auto pb-16 md:pb-12 md:w-[80%] lg:w-[60%] xl:w-[40%] xl:pb-8">
+        <div className="flex flex-col items-center z-30 w-full mx-auto pb-16 md:pb-12 md:w-[80%] lg:w-[60%] xl:w-[50%] xl:pb-8">
           <Nobg />
         </div>
       </div>

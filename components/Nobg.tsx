@@ -9,7 +9,7 @@ const Nobg = () => {
         unoptimized
         width={860}
         height={850}
-        className="2xl:w-[500px] h-auto"
+        className="xl:w-[500px] 2xl:w-[600px] h-auto"
         priority
       />
       ;

@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html {
+  overflow-x: clip;
+}
+
 body {
   /* Đảm bảo gradient lấp đầy toàn bộ màn hình */
   padding: 0;
@@ -11,7 +15,7 @@ body {
   /* Đây là chìa khóa: Cắt bỏ mọi thứ tràn ra ngoài, 
      buộc không có thanh cuộn */
   min-height: 100vh;
-
+  overflow-x: clip;
   /* Dòng quan trọng để đặt nền */
   background: linear-gradient(#9abec4, #ffffff);
   /* Tùy chọn: Ngăn gradient lặp lại nếu nội dung trang quá ngắn */
