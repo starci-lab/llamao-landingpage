@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { Alert, AlertDescription } from "./ui/8bit/alert";
 import About from "./About";
 import { Button } from "./ui/8bit/button";
+import Lore from "./Lore";
+import Traits from "./Traits";
 
 type NavVariant = "primary" | "default" | "cta";
 type NavLink = {
@@ -202,17 +204,20 @@ const NavigationBar = () => {
       </nav>
       {activeHash !== "#home" && (
         <>
-          <div className="fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-[50%] z-50 flex flex-col gap-5">
+          <div className="fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-[41%] z-50 flex flex-col gap-5">
             {activeHash === "#about" && <About />}
-
-            <div className="mx-auto">
-              <Button
-                onClick={() => handleLinkClick("#home")}
-                className="text-xl px-6 py-6 bg-[#6043AF] hover:bg-[#4a2f8f] hover:scale-105 transition-all duration-200"
-              >
-                Back
-              </Button>
-            </div>
+            {activeHash === "#lore" && <Lore />}
+            {activeHash === "#traits" && <Traits />}
+            {activeHash !== "#traits" && (
+              <div className="mx-auto">
+                <Button
+                  onClick={() => handleLinkClick("#home")}
+                  className="text-xl px-6 py-6 bg-[#6043AF] hover:bg-[#4a2f8f] hover:scale-105 transition-all duration-200"
+                >
+                  Back
+                </Button>
+              </div>
+            )}
           </div>
           <div className="fixed z-50 -right-16 -bottom-[10%]">
             <Image

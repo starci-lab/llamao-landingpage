@@ -72,17 +72,6 @@ function Button({ children, asChild, ...props }: BitButtonProps) {
               <div className="absolute bottom-0 right-0 size-1.5 bg-foreground dark:bg-ring" />
               <div className="absolute top-1.5 -left-1.5 h-[calc(100%-12px)] w-1.5 bg-foreground dark:bg-ring" />
               <div className="absolute top-1.5 -right-1.5 h-[calc(100%-12px)] w-1.5 bg-foreground dark:bg-ring" />
-              {variant !== "outline" && (
-                <>
-                  {/* Top shadow */}
-                  <div className="absolute top-0 left-0 w-full h-1.5 bg-foreground/20" />
-                  <div className="absolute top-1.5 left-0 w-3 h-1.5 bg-foreground/20" />
-
-                  {/* Bottom shadow */}
-                  <div className="absolute bottom-0 left-0 w-full h-1.5 bg-foreground/20" />
-                  <div className="absolute bottom-1.5 right-0 w-3 h-1.5 bg-foreground/20" />
-                </>
-              )}
             </>
           )}
 
@@ -114,17 +103,6 @@ function Button({ children, asChild, ...props }: BitButtonProps) {
               <div className="absolute bottom-0 right-0 size-1.5 bg-foreground dark:bg-ring" />
               <div className="absolute top-1.5 -left-1.5 h-[calc(100%-12px)] w-1.5 bg-foreground dark:bg-ring" />
               <div className="absolute top-1.5 -right-1.5 h-[calc(100%-12px)] w-1.5 bg-foreground dark:bg-ring" />
-              {variant !== "outline" && (
-                <>
-                  {/* Top shadow */}
-                  <div className="absolute top-0 left-0 w-full h-1.5 bg-foreground/20" />
-                  <div className="absolute top-1.5 left-0 w-3 h-1.5 bg-foreground/20" />
-
-                  {/* Bottom shadow */}
-                  <div className="absolute bottom-0 left-0 w-full h-1.5 bg-foreground/20" />
-                  <div className="absolute bottom-1.5 right-0 w-3 h-1.5 bg-foreground/20" />
-                </>
-              )}
             </>
           )}
 
