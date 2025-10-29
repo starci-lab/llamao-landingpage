@@ -208,7 +208,7 @@ const NavigationBar = () => {
       </nav>
       {activeHash !== "#home" && !isMenuOpen && (
         <>
-          <div className="absolute left-1/2 -translate-x-1/2 top-[15%] 2xl:top-[50%] w-[90%] lg:w-auto lg:-translate-y-[41%] z-50 flex flex-col gap-5">
+          <div className="absolute left-1/2 -translate-x-1/2 top-[15%] lg:top-[50%] 2xl:top-[50%] w-[90%] lg:w-auto lg:-translate-y-[41%] z-50 flex flex-col gap-5">
             {activeHash === "#about" && <About />}
             {activeHash === "#lore" && <Lore />}
             {activeHash === "#traits" && <Traits />}
