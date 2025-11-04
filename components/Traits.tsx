@@ -20,26 +20,18 @@ const Traits = () => {
           Llamao generator
         </p>
 
-        <div className="pt-4 w-full">
+        <div className="pt-4 flex justify-between w-full gap-5 pixelify-sans-500">
           <Button
             size={"sm"}
-            className="w-full bg-[#8866D4] hover:bg-[#FF2A31] hover:scale-105 hover:brightness-110 transition-all duration-200"
+            className="w-[46%] bg-[#8866D4] hover:bg-[#FF2A31] hover:scale-105 hover:brightness-110 transition-all duration-200"
           >
             <p className="tracking-tighter">LLAMAO NOW</p>
           </Button>
-        </div>
-        <div className="pt-6 flex justify-between w-full gap-5 pixelify-sans-500">
           <Button
             size={"sm"}
             className="w-[46%] bg-[#8280FF] hover:bg-[#FF2A31] hover:scale-105 hover:brightness-110 transition-all duration-200"
           >
             <p className="pixelify-sans-500 text-lg">Download</p>
-          </Button>
-          <Button
-            size={"sm"}
-            className="w-[46%] bg-[#8280FF] hover:bg-[#FF2A31] hover:scale-105 hover:brightness-110 transition-all duration-200"
-          >
-            <p className="pixelify-sans-500 text-lg">Share on X</p>
           </Button>
         </div>
         <p className="silkscreen-regular text-center tracking-tight text-2xl mt-4 text-[#2245C5]">

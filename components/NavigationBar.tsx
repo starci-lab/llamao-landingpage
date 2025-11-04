@@ -275,7 +275,12 @@ const NavigationBar = () => {
               {activeHash === "#lore" && <Lore />}
               {activeHash === "#traits" && <Traits />}
               {activeHash !== "#traits" && (
-                <div className="mx-auto">
+                <div className="mx-auto flex items-center justify-center gap-10">
+                  {activeHash === "#lore" && (
+                    <div className="hover:scale-110 transition-transform duration-300 cursor-pointer lg:hidden">
+                      <Image src={"/arrow.svg"} alt="leftarrow" width={35} height={52} />
+                    </div>
+                  )}
                   <MotionButton
                     onClick={() => handleLinkClick("#home")}
                     className="text-xl px-6 py-6 bg-[#6043AF] hover:bg-[#4a2f8f] transition-colors"
@@ -284,6 +289,17 @@ const NavigationBar = () => {
                   >
                     Back
                   </MotionButton>
+                  {activeHash === "#lore" && (
+                    <div className="hover:scale-110 transition-transform duration-300 cursor-pointer lg:hidden">
+                      <Image
+                        src={"/arrow.svg"}
+                        alt="rightarrow"
+                        width={35}
+                        height={52}
+                        className="scale-x-[-1]"
+                      />
+                    </div>
+                  )}
                 </div>
               )}
             </motion.div>
