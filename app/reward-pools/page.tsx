@@ -107,7 +107,7 @@ function TabButton({
     <button
       type="button"
       onClick={onClick}
-      className="relative h-[50px] w-full cursor-pointer overflow-hidden text-center text-white transition-transform hover:scale-[1.03] active:scale-95 focus:outline-none press-start-2p-regular"
+      className="relative h-[45px] w-full cursor-pointer overflow-hidden text-center text-white transition-transform hover:scale-[1.03] active:scale-95 focus:outline-none press-start-2p-regular text-xs sm:h-[50px] sm:text-sm md:text-base"
     >
       <Image
         src={
@@ -120,7 +120,7 @@ function TabButton({
           isActive ? "" : "opacity-60"
         }`}
       />
-      <span className="relative z-20 flex h-full items-center justify-center">
+      <span className="relative z-20 flex h-full items-center justify-center px-2">
         {label}
       </span>
     </button>
@@ -133,15 +133,15 @@ export default function RewardPools() {
 
   return (
     <motion.div
-      className="mx-auto my-10 flex max-w-[80%] flex-col items-center justify-center"
+      className="mx-auto my-4 flex w-full max-w-[95%] flex-col items-center justify-center px-4 sm:my-6 sm:max-w-[90%] lg:my-10 lg:max-w-[80%]"
       variants={pageVariants}
       initial="hidden"
       animate="visible"
     >
-      <motion.div variants={fadeInUp}>
+      <motion.div variants={fadeInUp} className="w-full sm:w-auto">
         <MotionButton
           onClick={() => router.push("/")}
-          className="bg-[#6043AF] px-6 py-6 text-xl transition-colors hover:bg-[#4a2f8f]"
+          className="bg-[#6043AF] px-4 py-4 text-base transition-colors hover:bg-[#4a2f8f] sm:px-6 sm:py-6 sm:text-xl"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -150,11 +150,11 @@ export default function RewardPools() {
       </motion.div>
 
       <motion.div
-        className="mt-25 flex h-auto w-[1400px] items-center justify-center border-10 border-[#B091FF] bg-white py-2"
+        className="mt-8 flex h-auto w-full max-w-[1400px] items-center justify-center border-4 border-[#B091FF] bg-white py-2 sm:mt-12 sm:border-6 md:mt-16 md:border-8 lg:mt-25 lg:border-10"
         variants={fadeInUp}
       >
         <motion.div
-          className="relative h-auto w-[1360px] border-10 border-[#E7E7E7] bg-white"
+          className="relative h-auto w-full border-4 border-[#E7E7E7] bg-white sm:border-6 md:border-8 lg:border-10"
           variants={fadeInUp}
         >
           <Image
@@ -162,19 +162,19 @@ export default function RewardPools() {
             alt="rewards-logo"
             width={514}
             height={100}
-            className="absolute left-[50%] -top-22 -translate-x-1/2"
+            className="absolute left-[50%] -top-8 -translate-x-1/2 w-[200px] sm:-top-12 sm:w-[300px] md:-top-16 md:w-[400px] lg:-top-22 lg:w-[514px]"
           />
 
           <motion.div
-            className="grid h-full w-full grid-cols-3 gap-10 p-8"
+            className="grid h-full w-full grid-cols-1 gap-4 p-4 sm:gap-6 sm:p-6 md:grid-cols-3 md:gap-8 md:p-8 lg:gap-10"
             variants={staggerContainer}
           >
             <motion.div
-              className="col-span-2 space-y-5"
+              className="col-span-1 space-y-4 md:col-span-2 md:space-y-5"
               variants={staggerContainer}
             >
               <motion.div
-                className="grid w-full grid-cols-2 gap-5"
+                className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5"
                 variants={staggerList}
               >
                 {tabs.map((tab) => (
@@ -197,43 +197,47 @@ export default function RewardPools() {
                   variants={staggerContainer}
                 >
                   <motion.div
-                    className="flex h-[300px] w-full flex-col border-7 border-[#D7B594] bg-[#11151F] px-6 py-5"
+                    className="flex min-h-[200px] w-full flex-col border-4 border-[#D7B594] bg-[#11151F] px-4 py-4 sm:h-[250px] sm:border-6 sm:px-5 sm:py-5 md:h-[300px] md:border-7 md:px-6"
                     variants={fadeInUp}
                   >
-                    <p className="press-start-2p-regular text-lg text-white">
+                    <p className="press-start-2p-regular text-sm text-white sm:text-base md:text-lg">
                       Featured Prizes
                     </p>
                     <motion.div
-                      className="mt-6 grid h-full grid-cols-5 gap-5"
+                      className="mt-4 grid h-full grid-cols-2 gap-3 sm:mt-5 sm:grid-cols-3 sm:gap-4 md:mt-6 md:grid-cols-5 md:gap-5"
                       variants={staggerList}
                     >
                       {featuredPrizes.map((prize, index) => (
                         <motion.div
                           key={prize.title}
-                          className={`press-start-2p-regular flex h-full flex-col items-center justify-end gap-3 bg-[#090B12] pb-3 text-center text-sm leading-6 text-white transition-transform duration-150 ease-out hover:scale-[1.03] ${
+                          className={`press-start-2p-regular flex h-full flex-col items-center justify-end gap-2 bg-[#090B12] pb-2 text-center text-xs leading-5 text-white transition-transform duration-150 ease-out hover:scale-[1.03] sm:gap-3 sm:pb-3 sm:text-sm sm:leading-6 ${
                             index === 0
-                              ? "border-4 border-[#F4B63D] shadow-[0_0_0_3px_#1A1D26]"
+                              ? "border-2 border-[#F4B63D] shadow-[0_0_0_2px_#1A1D26] sm:border-4 sm:shadow-[0_0_0_3px_#1A1D26]"
                               : ""
                           }`}
                           variants={fadeInUp}
                         >
                           <span>{prize.title}</span>
-                          <span>{prize.description}</span>
+                          <span className="text-[10px] sm:text-xs md:text-sm">
+                            {prize.description}
+                          </span>
                         </motion.div>
                       ))}
                     </motion.div>
                   </motion.div>
 
                   <motion.div
-                    className="grid w-full grid-cols-2 gap-3"
+                    className="grid w-full grid-cols-1 gap-3 sm:grid-cols-2"
                     variants={staggerList}
                   >
                     {rewardSummaries.map((summary) => (
                       <motion.div key={summary.id} variants={fadeInUp}>
                         <Alert borderColor="black">
                           <AlertDescription className="pixelify-sans-500 text-black">
-                            <p>{summary.label}</p>
-                            <p className="press-start-2p-regular">
+                            <p className="text-xs sm:text-sm md:text-base">
+                              {summary.label}
+                            </p>
+                            <p className="press-start-2p-regular text-xs sm:text-sm md:text-base">
                               {summary.value}
                             </p>
                           </AlertDescription>
@@ -243,51 +247,60 @@ export default function RewardPools() {
                   </motion.div>
 
                   <motion.div
-                    className="flex w-full items-center justify-between text-xl text-black pixelify-sans-500"
+                    className="flex w-full flex-col gap-3 text-black pixelify-sans-500 sm:flex-row sm:items-center sm:justify-between sm:gap-4 md:text-lg lg:text-xl"
                     variants={fadeInUp}
                   >
-                    <p>All Items</p>
-                    <div className="flex items-center gap-6">
-                      <p>Sort by: Recently Added Items</p>
+                    <p className="text-base sm:text-lg md:text-xl">All Items</p>
+                    <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
+                      <p className="text-xs sm:text-sm md:text-base lg:text-lg">
+                        Sort by: Recently Added Items
+                      </p>
                       <Image
                         src="/arrow-black.svg"
                         alt="arrow"
                         width={20}
                         height={12}
+                        className="h-auto w-4 sm:w-5 md:w-6"
                       />
                     </div>
                   </motion.div>
 
-                  <motion.div className="space-y-5" variants={staggerList}>
+                  <motion.div
+                    className="space-y-4 sm:space-y-5"
+                    variants={staggerList}
+                  >
                     {rewardCards.map((card) => (
                       <motion.div key={card.id} variants={fadeInUp}>
                         <Alert borderColor="black" className={card.className}>
-                          <AlertDescription className="pixelify-sans-500 flex w-full justify-between text-black">
-                            <div className="flex items-center gap-3">
-                              <div className="h-auto w-12">
+                          <AlertDescription className="pixelify-sans-500 flex w-full flex-col gap-3 text-black sm:flex-row sm:justify-between sm:gap-4">
+                            <div className="flex items-center gap-2 sm:gap-3">
+                              <div className="h-auto w-8 shrink-0 sm:w-10 md:w-12">
                                 <Image
                                   src="/llamao-gen.png"
                                   alt="llamao"
                                   width={424}
                                   height={424}
+                                  className="h-auto w-full"
                                 />
                               </div>
-                              <div>
-                                <p>NFT</p>
-                                <p className="press-start-2p-regular">
+                              <div className="min-w-0">
+                                <p className="text-xs sm:text-sm md:text-base">
+                                  NFT
+                                </p>
+                                <p className="press-start-2p-regular text-xs sm:text-sm md:text-base">
                                   LLAMAO #1
                                 </p>
                               </div>
                             </div>
-                            <div>
+                            <div className="text-xs sm:text-sm md:text-base">
                               <p>Total Estimated Value</p>
                               <p className="press-start-2p-regular">5000 MON</p>
                             </div>
-                            <div>
+                            <div className="text-xs sm:text-sm md:text-base">
                               <p>Quantity</p>
                               <p className="press-start-2p-regular">1</p>
                             </div>
-                            <div>
+                            <div className="text-xs sm:text-sm md:text-base">
                               <p>Day Added</p>
                               <p className="press-start-2p-regular">
                                 5 DAYS AGO
@@ -310,16 +323,19 @@ export default function RewardPools() {
                   <motion.div className="w-full" variants={fadeInUp}>
                     <Alert borderColor="black">
                       <AlertDescription className="pixelify-sans-500 flex w-full justify-between text-black">
-                        <div className="flex items-center">
-                          <div className="h-auto w-12">
+                        <div className="flex items-center gap-2 sm:gap-3">
+                          <div className="h-auto w-8 shrink-0 sm:w-10 md:w-12">
                             <Image
                               src="/search.svg"
                               alt="search"
                               width={20}
                               height={20}
+                              className="h-auto w-full"
                             />
                           </div>
-                          <p>Search participant address</p>
+                          <p className="text-xs sm:text-sm md:text-base">
+                            Search participant address
+                          </p>
                         </div>
                       </AlertDescription>
                     </Alert>
@@ -333,25 +349,33 @@ export default function RewardPools() {
                       variants={staggerContainer}
                     >
                       <motion.div
-                        className="grid w-full grid-cols-4 px-2 text-[#1E3445]"
+                        className="hidden grid-cols-2 gap-4 px-2 text-xs text-[#1E3445] sm:grid sm:grid-cols-4 sm:text-sm md:text-base"
                         variants={fadeInUp}
                       >
                         <p>Participant</p>
-                        <p className="pl-6">Total NFT Owned</p>
-                        <p className="pl-6">Total NFT Purchase</p>
-                        <p className="pl-12">Date Added</p>
+                        <p className="sm:pl-6">Total NFT Owned</p>
+                        <p className="sm:pl-6">Total NFT Purchase</p>
+                        <p className="sm:pl-12">Date Added</p>
                       </motion.div>
 
                       <motion.div className="space-y-4" variants={staggerList}>
                         {participantRows.map((row) => (
                           <motion.div key={row.id} variants={fadeInUp}>
                             <Alert borderColor="black">
-                              <AlertDescription className="pixelify-sans-500 flex w-full justify-between text-black">
-                                <div className="press-start-2p-regular flex w-full justify-between">
-                                  <p>{row.address}</p>
-                                  <p>{row.totalOwned}</p>
-                                  <p>{row.totalPurchase}</p>
-                                  <p>{row.dateAdded}</p>
+                              <AlertDescription className="pixelify-sans-500 flex w-full flex-col gap-2 text-black sm:flex-row sm:justify-between">
+                                <div className="press-start-2p-regular flex w-full flex-col gap-2 sm:flex-row sm:justify-between">
+                                  <p className="text-xs sm:text-sm md:text-base">
+                                    {row.address}
+                                  </p>
+                                  <p className="text-xs sm:text-sm md:text-base">
+                                    {row.totalOwned}
+                                  </p>
+                                  <p className="text-xs sm:text-sm md:text-base">
+                                    {row.totalPurchase}
+                                  </p>
+                                  <p className="text-xs sm:text-sm md:text-base">
+                                    {row.dateAdded}
+                                  </p>
                                 </div>
                               </AlertDescription>
                             </Alert>
@@ -360,35 +384,40 @@ export default function RewardPools() {
 
                         <motion.div variants={fadeInUp}>
                           <Alert borderColor="black" className="bg-[#C9B9F7]">
-                            <AlertDescription className="pixelify-sans-500 flex w-full justify-between text-black">
-                              <div className="press-start-2p-regular flex w-full justify-between">
-                                <div className="flex items-center gap-3">
-                                  <div className="h-auto w-12">
+                            <AlertDescription className="pixelify-sans-500 flex w-full flex-col gap-3 text-black sm:flex-row sm:justify-between sm:gap-4">
+                              <div className="press-start-2p-regular flex w-full flex-col gap-3 sm:flex-row sm:justify-between">
+                                <div className="flex items-center gap-2 sm:gap-3">
+                                  <div className="h-auto w-8 shrink-0 sm:w-10 md:w-12">
                                     <Image
                                       src="/llamao-gen.png"
                                       alt="llamao"
                                       width={100}
                                       height={100}
+                                      className="h-auto w-full"
                                     />
                                   </div>
                                   <div className="flex flex-col">
-                                    <p className="pixelify-sans-500">YOU</p>
-                                    <p>{highlightedParticipant.address}</p>
+                                    <p className="pixelify-sans-500 text-xs sm:text-sm md:text-base">
+                                      YOU
+                                    </p>
+                                    <p className="text-xs sm:text-sm md:text-base">
+                                      {highlightedParticipant.address}
+                                    </p>
                                   </div>
                                 </div>
-                                <div className="flex flex-col">
+                                <div className="flex flex-col text-xs sm:text-sm md:text-base">
                                   <p className="pixelify-sans-500">
                                     Total NFT Owned
                                   </p>
                                   <p>{highlightedParticipant.totalOwned}</p>
                                 </div>
-                                <div className="flex flex-col">
+                                <div className="flex flex-col text-xs sm:text-sm md:text-base">
                                   <p className="pixelify-sans-500">
                                     Total NFT Purchase
                                   </p>
                                   <p>{highlightedParticipant.totalPurchase}</p>
                                 </div>
-                                <div className="flex flex-col">
+                                <div className="flex flex-col text-xs sm:text-sm md:text-base">
                                   <p className="pixelify-sans-500">Day Added</p>
                                   <p>{highlightedParticipant.dateAdded}</p>
                                 </div>
@@ -400,7 +429,7 @@ export default function RewardPools() {
                     </motion.div>
                   ) : (
                     <motion.div
-                      className="press-start-2p-regular flex w-full flex-col items-center justify-center gap-4 rounded-md border-4 border-dashed border-[#B091FF] bg-[#F7F2FF] py-12 text-center text-[#6043AF]"
+                      className="press-start-2p-regular flex w-full flex-col items-center justify-center gap-3 rounded-md border-2 border-dashed border-[#B091FF] bg-[#F7F2FF] py-8 text-center text-[#6043AF] sm:gap-4 sm:border-4 sm:py-10 md:py-12"
                       variants={fadeInUp}
                     >
                       <Image
@@ -408,9 +437,11 @@ export default function RewardPools() {
                         alt="participants coming soon"
                         width={220}
                         height={48}
-                        className="h-auto w-full max-w-[220px] select-none"
+                        className="h-auto w-full max-w-[180px] select-none sm:max-w-[200px] md:max-w-[220px]"
                       />
-                      <p>Participants list is coming soon.</p>
+                      <p className="text-xs sm:text-sm md:text-base">
+                        Participants list is coming soon.
+                      </p>
                     </motion.div>
                   )}
                 </motion.div>
@@ -418,31 +449,33 @@ export default function RewardPools() {
             </motion.div>
 
             <motion.div
-              className="col-span-1 flex flex-col gap-2"
+              className="col-span-1 flex flex-col gap-3 sm:gap-4 md:gap-2"
               variants={staggerContainer}
             >
               <motion.div variants={fadeInUp}>
                 <Alert borderColor="#6043AF">
-                  <AlertDescription className="pixelify-sans-500 w-full space-y-6 text-black">
-                    <div className="flex w-full items-center justify-between">
-                      <p className="silkscreen-regular text-2xl text-[#2245C5]">
+                  <AlertDescription className="pixelify-sans-500 w-full space-y-4 text-black sm:space-y-5 md:space-y-6">
+                    <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                      <p className="silkscreen-regular text-lg text-[#2245C5] sm:text-xl md:text-2xl">
                         YOUR NFT
                       </p>
                       <Alert
                         borderColor="black"
-                        className="w-auto bg-[#80EED3] py-1 opacity-31"
+                        className="w-full bg-[#80EED3] py-1 opacity-31 sm:w-auto"
                       >
                         <AlertDescription className="pixelify-sans-500 text-black">
                           <div className="flex items-center justify-between">
-                            <p className="text-lg">Coming Soon</p>
+                            <p className="text-sm sm:text-base md:text-lg">
+                              Coming Soon
+                            </p>
                           </div>
                         </AlertDescription>
                       </Alert>
                     </div>
 
-                    <div className="relative h-[80px] w-full">
+                    <div className="relative h-[60px] w-full sm:h-[70px] md:h-[80px]">
                       <div className="absolute inset-0 z-10 flex items-center justify-center">
-                        <div className="press-start-2p-regular relative w-[70%] text-center text-white transition-transform hover:scale-[1.03] active:scale-95">
+                        <div className="press-start-2p-regular relative w-[80%] text-center text-white transition-transform hover:scale-[1.03] active:scale-95 sm:w-[75%] md:w-[70%]">
                           <Image
                             src="/reward-pool-bg.svg"
                             alt="coming soon"
@@ -450,13 +483,13 @@ export default function RewardPools() {
                             height={50}
                             className="h-auto w-full select-none"
                           />
-                          <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="absolute inset-0 flex items-center justify-center text-xs sm:text-sm md:text-base">
                             COMING SOON
                           </div>
                         </div>
                       </div>
 
-                      <div className="absolute inset-0 flex w-full gap-3 blur">
+                      <div className="absolute inset-0 flex w-full gap-2 blur sm:gap-3">
                         {Array.from({ length: 4 }).map((_, index) => (
                           <div className="w-full" key={`blurred-nft-${index}`}>
                             <Image
@@ -471,7 +504,7 @@ export default function RewardPools() {
                       </div>
                     </div>
 
-                    <div className="w-full text-lg">
+                    <div className="w-full text-sm sm:text-base md:text-lg">
                       The Llamao Blessing Pool is a campaign that runs from now
                       until one month after mainnet launch, designed to reward
                       the believers who mint, buy, and hold Llamao NFTs.
@@ -482,16 +515,16 @@ export default function RewardPools() {
 
               <motion.div variants={fadeInUp}>
                 <Alert borderColor="#6043AF">
-                  <AlertDescription className="pixelify-sans-500 w-full space-y-6 text-black">
+                  <AlertDescription className="pixelify-sans-500 w-full space-y-4 text-black sm:space-y-5 md:space-y-6">
                     <div className="flex w-full items-center justify-between">
-                      <p className="silkscreen-regular text-2xl text-[#2245C5]">
+                      <p className="silkscreen-regular text-lg text-[#2245C5] sm:text-xl md:text-2xl">
                         COUNTDOWN TIMER
                       </p>
                     </div>
 
-                    <div className="relative h-[80px] w-full">
+                    <div className="relative h-[60px] w-full sm:h-[70px] md:h-[80px]">
                       <div className="absolute inset-0 z-10 flex items-center justify-center">
-                        <div className="press-start-2p-regular relative w-[70%] text-center text-white transition-transform hover:scale-[1.03] active:scale-95">
+                        <div className="press-start-2p-regular relative w-[80%] text-center text-white transition-transform hover:scale-[1.03] active:scale-95 sm:w-[75%] md:w-[70%]">
                           <Image
                             src="/reward-pool-bg.svg"
                             alt="coming soon"
@@ -499,13 +532,13 @@ export default function RewardPools() {
                             height={50}
                             className="h-auto w-full select-none"
                           />
-                          <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="absolute inset-0 flex items-center justify-center text-xs sm:text-sm md:text-base">
                             STAY TUNED
                           </div>
                         </div>
                       </div>
 
-                      <div className="absolute inset-0 flex w-full gap-3 blur">
+                      <div className="absolute inset-0 flex w-full gap-2 blur sm:gap-3">
                         {Array.from({ length: 4 }).map((_, index) => (
                           <div
                             className="w-full"
@@ -523,7 +556,7 @@ export default function RewardPools() {
                       </div>
                     </div>
 
-                    <div className="w-full text-lg">
+                    <div className="w-full text-sm sm:text-base md:text-lg">
                       {`You'll be able to enter our Blesing Pools and discover what's inside at the end of the time.`}
                     </div>
                   </AlertDescription>
