@@ -4,8 +4,14 @@ import { Alert, AlertDescription } from "@/components/ui/8bit/alert";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useWindowSize from "@/hooks/useWindowSize";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -43,10 +49,15 @@ const featuredPrizes = [
   { title: "Prize 3", description: "NFT of Llamao" },
   { title: "Prize 4", description: "NFT of Llamao" },
   { title: "Prize 5", description: "NFT of Llamao" },
+  { title: "Prize 6", description: "NFT of Llamao" },
+  { title: "Prize 7", description: "NFT of Llamao" },
+  { title: "Prize 8", description: "NFT of Llamao" },
+  { title: "Prize 9", description: "NFT of Llamao" },
+  { title: "Prize 10", description: "NFT of Llamao" },
 ];
 
 const rewardSummaries = [
-  { id: "estimated-value", label: "Total Estimated Value", value: "5000 MON" },
+  { id: "estimated-value", label: "Total Rewards", value: "5000 MON" },
   { id: "last-updated", label: "Last Updated", value: "5 days ago" },
 ];
 
@@ -203,6 +214,33 @@ type SortOption =
 export default function RewardPools() {
   const [activeTab, setActiveTab] = useState<TabKey>("rewards");
   const [sortOption, setSortOption] = useState<SortOption>("recently-added");
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  // Update current index when carousel changes
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  // Auto-scroll prizes
+  useEffect(() => {
+    if (!api) return;
+
+    const interval = setInterval(() => {
+      // Always scroll next - embla-carousel with loop: true will handle seamless looping
+      api.scrollNext();
+    }, 1500); // Change prize every 1.5 seconds
+
+    return () => clearInterval(interval);
+  }, [api]);
 
   return (
     <motion.div
@@ -239,7 +277,7 @@ export default function RewardPools() {
                 variants={staggerContainer}
               >
                 <motion.div
-                  className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3 md:gap-4"
+                  className="grid w-full grid-cols-1 gap-2 -mt-6 sm:mt-0 sm:grid-cols-2 sm:gap-3 md:gap-4"
                   variants={staggerList}
                 >
                   {tabs.map((tab) => (
@@ -268,40 +306,56 @@ export default function RewardPools() {
                       <p className="press-start-2p-regular text-[10px] text-white sm:text-xs md:text-sm lg:text-base">
                         Featured Prizes
                       </p>
-                      <motion.div
-                        className="mt-2 grid h-full grid-cols-2 gap-2 sm:mt-3 sm:grid-cols-3 sm:gap-2 md:mt-3 md:grid-cols-4 md:gap-3 lg:mt-4 lg:grid-cols-5 lg:gap-3"
-                        variants={staggerList}
-                      >
-                        {featuredPrizes.map((prize, index) => (
-                          <motion.div
-                            key={prize.title}
-                            className={`press-start-2p-regular flex h-full flex-col items-center justify-start gap-0.5 bg-[#090B12] px-1.5 py-1 text-center text-[8px] leading-tight text-white transition-transform duration-150 ease-out hover:scale-[1.03] sm:gap-1 sm:px-2 sm:py-1 sm:text-[10px] sm:leading-5 md:gap-1 md:px-3 md:py-1.5 md:text-xs md:leading-6 ${
-                              index === 0
-                                ? "border border-[#F4B63D] shadow-[0_0_0_1px_#1A1D26] sm:border-2 sm:shadow-[0_0_0_2px_#1A1D26] md:border-[3px] md:shadow-[0_0_0_3px_#1A1D26]"
-                                : ""
-                            }`}
-                            variants={fadeInUp}
-                          >
-                            <div className="relative w-full flex items-center justify-center min-h-[80px] sm:min-h-[100px] md:min-h-[120px] lg:min-h-[140px]">
-                              <Image
-                                src="/prizelogo.jpg"
-                                alt={`${prize.title} logo`}
-                                width={110}
-                                height={110}
-                                className="h-auto w-auto max-w-full object-contain scale-105 sm:scale-108 md:scale-110"
-                              />
-                            </div>
-                            <div className="flex flex-col gap-0.5 shrink-0 w-full text-center px-1 max-w-[60px] sm:max-w-[70px] md:max-w-[80px] mx-auto">
-                              <span className="wrap-break-word whitespace-normal min-h-[1.2em] flex items-center justify-center leading-tight">
-                                {prize.title}
-                              </span>
-                              <span className="text-[7px] sm:text-[8px] md:text-[10px] whitespace-normal wrap-break-word min-h-[1.2em] flex items-center justify-center leading-tight">
-                                {prize.description}
-                              </span>
-                            </div>
-                          </motion.div>
-                        ))}
-                      </motion.div>
+                      <div className="mt-2 sm:mt-3 md:mt-3 lg:mt-4">
+                        <Carousel
+                          setApi={setApi}
+                          opts={{
+                            align: "start",
+                            loop: true,
+                            slidesToScroll: 1,
+                          }}
+                          className="w-full"
+                        >
+                          <CarouselContent className="-ml-2 sm:-ml-2 md:-ml-3 lg:-ml-3">
+                            {featuredPrizes.map((prize, index) => {
+                              const isSelected = index === current;
+                              return (
+                                <CarouselItem
+                                  key={prize.title}
+                                  className="pl-2 sm:pl-2 md:pl-3 lg:pl-3 basis-1/5"
+                                >
+                                  <motion.div
+                                    className={`press-start-2p-regular flex h-full flex-col items-center justify-start gap-0.5 bg-[#090B12] px-1.5 py-1 text-center text-[8px] leading-tight text-white transition-transform duration-150 ease-out hover:scale-[1.03] sm:gap-1 sm:px-2 sm:py-1 sm:text-[10px] sm:leading-5 md:gap-1 md:px-3 md:py-1.5 md:text-xs md:leading-6 ${
+                                      isSelected
+                                        ? "border border-[#F4B63D] shadow-[0_0_0_1px_#1A1D26] sm:border-2 sm:shadow-[0_0_0_2px_#1A1D26] md:border-[3px] md:shadow-[0_0_0_3px_#1A1D26]"
+                                        : ""
+                                    }`}
+                                    variants={fadeInUp}
+                                  >
+                                    <div className="relative w-full flex items-center justify-center h-[80px] sm:h-[100px] md:h-[120px] lg:h-[140px]">
+                                      <Image
+                                        src="/prizelogo.jpg"
+                                        alt={`${prize.title} logo`}
+                                        width={110}
+                                        height={110}
+                                        className="h-full w-auto object-contain"
+                                      />
+                                    </div>
+                                    <div className="flex flex-col gap-0.5 shrink-0 w-full text-center px-1 max-w-[60px] sm:max-w-[70px] md:max-w-[80px] mx-auto">
+                                      <span className="wrap-break-word whitespace-normal min-h-[1.2em] flex items-center justify-center leading-tight">
+                                        {prize.title}
+                                      </span>
+                                      <span className="text-[7px] sm:text-[8px] md:text-[10px] whitespace-normal wrap-break-word min-h-[1.2em] flex items-center justify-center leading-tight">
+                                        {prize.description}
+                                      </span>
+                                    </div>
+                                  </motion.div>
+                                </CarouselItem>
+                              );
+                            })}
+                          </CarouselContent>
+                        </Carousel>
+                      </div>
                     </motion.div>
 
                     <motion.div
@@ -410,12 +464,6 @@ export default function RewardPools() {
                                 </div>
                               </div>
                               <div className="text-[8px] sm:text-[10px] md:text-xs">
-                                <p>Total Estimated Value</p>
-                                <p className="press-start-2p-regular">
-                                  {card.value} MON
-                                </p>
-                              </div>
-                              <div className="text-[8px] sm:text-[10px] md:text-xs">
                                 <p>Quantity</p>
                                 <p className="press-start-2p-regular">
                                   {card.quantity}
@@ -436,16 +484,27 @@ export default function RewardPools() {
                 ) : (
                   <motion.div
                     key="participants"
-                    className="space-y-2 sm:space-y-3 md:space-y-4"
+                    className="relative space-y-3 sm:space-y-4 md:space-y-5"
                     initial="hidden"
                     animate="visible"
                     variants={staggerContainer}
                   >
-                    <motion.div className="w-full" variants={fadeInUp}>
+                    <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                      <motion.div
+                        className="press-start-2p-regular bg-[#9977DD] text-white px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-5 rounded shadow-[4px_4px_0_0_#663300]"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        COMING SOON
+                      </motion.div>
+                    </div>
+                    <div className="blur-sm">
+                    <motion.div className="w-full my-3 mb-4 sm:my-4 sm:mb-5" variants={fadeInUp}>
                       <Alert borderColor="black">
-                        <AlertDescription className="pixelify-sans-500 flex w-full flex-col gap-1 px-0.5 py-0 text-black sm:flex-row sm:items-center sm:justify-between sm:gap-1.5 sm:px-1 sm:py-0">
-                          <div className="flex items-center gap-1.5 sm:gap-2">
-                            <div className="h-auto w-5 shrink-0 sm:w-6 md:w-8 lg:w-10">
+                        <AlertDescription className="pixelify-sans-500 flex w-full flex-col gap-0.5 px-0.5 py-0 text-black sm:flex-row sm:items-center sm:justify-between sm:gap-1 sm:px-0.5 sm:py-0">
+                          <div className="flex items-center gap-1 sm:gap-1.5">
+                            <div className="h-auto w-4 shrink-0 sm:w-4 md:w-5 lg:w-6">
                               <Image
                                 src="/search.svg"
                                 alt="search"
@@ -470,33 +529,33 @@ export default function RewardPools() {
                         variants={staggerContainer}
                       >
                         <motion.div
-                          className="hidden grid-cols-2 gap-2 px-2 text-[8px] text-[#1E3445] sm:grid sm:grid-cols-4 sm:gap-3 sm:text-[10px] md:text-xs"
+                          className="hidden grid-cols-2 gap-2 px-1 text-[8px] text-[#1E3445] sm:grid sm:grid-cols-4 sm:gap-3 sm:text-[10px] md:text-xs"
                           variants={fadeInUp}
                         >
-                          <p>Participant</p>
-                          <p className="sm:pl-4">Total NFT Owned</p>
-                          <p className="sm:pl-4">Total NFT Purchase</p>
-                          <p className="sm:pl-6 md:pl-8">Date Added</p>
+                          <p className="sm:pl-3">Participant</p>
+                          <p className="sm:pl-2">Total NFT Owned</p>
+                          <p className="sm:pl-2">Total NFT Purchase</p>
+                          <p className="sm:pl-3 md:pl-4">Date Added</p>
                         </motion.div>
 
                         <motion.div
-                          className="space-y-2 sm:space-y-3"
+                          className="space-y-4 sm:space-y-4"
                           variants={staggerList}
                         >
                           {participantRows.map((row) => (
                             <motion.div key={row.id} variants={fadeInUp}>
                               <Alert borderColor="black">
-                                <AlertDescription className="pixelify-sans-500 flex w-full flex-col gap-1.5 px-2 py-1 text-black sm:gap-2 sm:px-3 sm:py-1">
-                                  <div className="grid gap-2 sm:grid-cols-4 sm:gap-3 md:gap-4">
+                                <AlertDescription className="pixelify-sans-500 flex w-full flex-col gap-2 px-0.5 py-0 text-black sm:gap-3 sm:px-1 sm:py-0">
+                                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4 md:gap-5">
                                     {participantFields.map(({ key, label }) => (
                                       <div
                                         key={`${row.id}-${key}`}
-                                        className="flex flex-col gap-1 text-[8px] sm:text-[10px] md:text-xs lg:text-sm"
+                                        className="flex flex-col gap-1.5 text-[8px] sm:text-[10px] md:text-xs lg:text-sm min-w-0 overflow-hidden"
                                       >
                                         <span className="text-[8px] uppercase text-[#475160] sm:hidden">
                                           {label}
                                         </span>
-                                        <p className="press-start-2p-regular break-all text-[8px] sm:break-normal sm:text-[10px] md:text-xs lg:text-sm">
+                                        <p className="press-start-2p-regular break-words break-all text-[8px] sm:break-words sm:text-[10px] md:text-xs lg:text-sm overflow-wrap-anywhere">
                                           {row[key]}
                                         </p>
                                       </div>
@@ -509,9 +568,9 @@ export default function RewardPools() {
 
                           <motion.div variants={fadeInUp}>
                             <Alert borderColor="black" className="bg-[#C9B9F7]">
-                              <AlertDescription className="pixelify-sans-500 flex w-full flex-col gap-2 px-2 py-1 text-black sm:gap-3 sm:px-3 sm:py-1.5">
-                                <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4 md:gap-6">
-                                  <div className="flex items-start gap-2 sm:items-center sm:gap-3">
+                              <AlertDescription className="pixelify-sans-500 flex w-full flex-col gap-3 px-0 py-0 text-black sm:gap-4 sm:px-0.5 sm:py-0">
+                                <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-5 md:gap-7">
+                                  <div className="flex items-start gap-3 sm:items-center sm:gap-4">
                                     <div className="h-auto w-8 shrink-0 sm:w-10 md:w-12">
                                       <Image
                                         src="/llamao-gen.png"
@@ -521,30 +580,30 @@ export default function RewardPools() {
                                         className="h-auto w-full"
                                       />
                                     </div>
-                                    <div className="flex flex-col gap-1 min-w-0 flex-1">
+                                    <div className="flex flex-col gap-1.5 min-w-0 flex-1 overflow-hidden">
                                       <span className="text-[9px] uppercase text-[#475160] sm:hidden">
                                         Participant
                                       </span>
                                       <p className="pixelify-sans-500 text-[8px] sm:text-[10px] md:text-xs lg:text-sm">
                                         YOU
                                       </p>
-                                      <p className="press-start-2p-regular break-all text-[8px] sm:break-normal sm:text-[10px] md:text-xs lg:text-sm">
+                                      <p className="press-start-2p-regular break-words break-all text-[8px] sm:break-words sm:text-[10px] md:text-xs lg:text-sm overflow-wrap-anywhere">
                                         {highlightedParticipant.address}
                                       </p>
                                     </div>
                                   </div>
 
-                                  <div className="grid w-full gap-2 sm:grid-cols-3 sm:gap-3 md:gap-4">
+                                  <div className="grid w-full gap-3 sm:grid-cols-3 sm:gap-4 md:gap-5">
                                     {participantStatFields.map(
                                       ({ key, label }) => (
                                         <div
                                           key={`highlight-${key}`}
-                                          className="flex flex-col gap-1 text-[8px] sm:text-[10px] md:text-xs lg:text-sm"
+                                          className="flex flex-col gap-1.5 text-[8px] sm:text-[10px] md:text-xs lg:text-sm min-w-0 overflow-hidden"
                                         >
                                           <span className="text-[8px] uppercase text-[#475160] sm:hidden">
                                             {label}
                                           </span>
-                                          <p className="press-start-2p-regular text-[8px] sm:text-[10px] md:text-xs lg:text-sm">
+                                          <p className="press-start-2p-regular break-words break-all text-[8px] sm:break-words sm:text-[10px] md:text-xs lg:text-sm overflow-wrap-anywhere">
                                             {highlightedParticipant[key]}
                                           </p>
                                         </div>
@@ -574,6 +633,7 @@ export default function RewardPools() {
                         </p>
                       </motion.div>
                     )}
+                    </div>
                   </motion.div>
                 )}
               </motion.div>

@@ -108,7 +108,7 @@ const Lore = () => {
   return (
     <div className="flex items-center gap-20 justify-center">
       <motion.div
-        className="hover:scale-110 transition-transform duration-300 cursor-pointer hidden lg:block"
+        className="hover:scale-110 transition-transform duration-300 cursor-pointer hidden md:block"
         onClick={handlePrevious}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
@@ -128,8 +128,16 @@ const Lore = () => {
           >
             <Alert
               borderColor="#1E3445"
-              className="max-w-[430px] max-h-[80%] flex flex-col justify-between p-0 gap-0"
+              className="max-w-[430px] max-h-[80%] flex flex-col justify-between p-0 gap-0 relative"
             >
+              <motion.div
+                className="hover:scale-110 transition-transform duration-300 cursor-pointer absolute left-2 top-1/2 -translate-y-1/2 md:hidden z-10"
+                onClick={handlePrevious}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Image src={"/arrow.svg"} alt="leftarrow" width={50} height={75} />
+              </motion.div>
               <Image
                 src={currentItem.image}
                 alt={currentItem.name}
@@ -156,12 +164,26 @@ const Lore = () => {
                   {currentItem.content}
                 </motion.p>
               </div>
+              <motion.div
+                className="hover:scale-110 transition-transform duration-300 cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 md:hidden z-10"
+                onClick={handleNext}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Image
+                  src={"/arrow.svg"}
+                  alt="rightarrow"
+                  width={50}
+                  height={75}
+                  className="scale-x-[-1]"
+                />
+              </motion.div>
             </Alert>
           </motion.div>
         </AnimatePresence>
       </div>
       <motion.div
-        className="hover:scale-110 transition-transform duration-300 cursor-pointer hidden lg:block"
+        className="hover:scale-110 transition-transform duration-300 cursor-pointer hidden md:block"
         onClick={handleNext}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
