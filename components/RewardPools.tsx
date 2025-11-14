@@ -55,30 +55,19 @@ const featuredPrizes = [
   { title: "Prize 9", description: "NFT of Llamao" },
   { title: "Prize 10", description: "NFT of Llamao" },
 ];
-
 const rewardSummaries = [
   { id: "estimated-value", label: "Total Rewards", value: "5000 MON" },
   { id: "last-updated", label: "Last Updated", value: "5 days ago" },
 ];
 
-const rewardCardsData = [
-  {
-    id: "highlight",
-    className: "bg-[#C9B9F7]",
-    value: 5000,
-    quantity: 1,
-    dateAdded: "5 days ago",
-    daysAgo: 5,
-  },
-  {
-    id: "default",
-    className: "",
-    value: 5000,
-    quantity: 1,
-    dateAdded: "5 days ago",
-    daysAgo: 5,
-  },
-];
+const rewardCardsData = Array.from({ length: 10 }, (_, index) => ({
+  id: `reward-${index}`,
+  title: `LLAMAO #${index + 1}`,
+  value: 5000 + index * 250,
+  quantity: (index % 3) + 1,
+  daysAgo: index + 1,
+  thumbnail: "/llamao-gen.png",
+}));
 
 type ParticipantRow = {
   id: string;
@@ -145,8 +134,8 @@ function BlurredBackgroundButton({ text, id }: { text: string; id: string }) {
 
   return (
     <div className="relative w-full overflow-visible flex items-center justify-center my-2 sm:my-3 px-2 sm:px-3">
-      <div className="relative w-full h-[70px] sm:h-[80px] md:h-[90px] lg:h-[100px] flex items-center justify-center">
-        <div className="absolute inset-0 flex w-full gap-0.5 blur-[2px] sm:gap-1 sm:blur-[3px] md:gap-1.5 md:blur-[4px] z-0 opacity-60">
+      <div className="relative w-full h-[70px] sm:h-20 md:h-[90px] lg:h-[100px] flex items-center justify-center">
+        <div className="absolute inset-0 flex w-full gap-0.5 blur-[2px] sm:gap-1 sm:blur-sm md:gap-1.5 md:blur-sm z-0 opacity-60">
           {Array.from({ length: imageCount }).map((_, index) => (
             <div className="w-full h-full" key={`blurred-${id}-${index}`}>
               <Image
@@ -160,7 +149,7 @@ function BlurredBackgroundButton({ text, id }: { text: string; id: string }) {
           ))}
         </div>
         <div
-          className="press-start-2p-regular relative z-10 w-full max-w-[280px] h-[40px] text-center text-white transition-transform hover:scale-[1.03] active:scale-95 sm:h-[45px] md:h-[50px] lg:h-[55px] bg-[#B091FF] flex items-center justify-center"
+          className="press-start-2p-regular relative z-10 w-full max-w-[280px] h-10 text-center text-white transition-transform hover:scale-[1.03] active:scale-95 sm:h-[45px] md:h-[50px] lg:h-[55px] bg-[#B091FF] flex items-center justify-center"
           style={{
             boxShadow: "6px 6px 0 0 #4A2C1A",
           }}
@@ -244,18 +233,18 @@ export default function RewardPools() {
 
   return (
     <motion.div
-      className="relative w-full max-w-[100%] overflow-x-hidden overflow-y-visible"
+      className="relative w-full max-w-full overflow-x-hidden overflow-y-visible 2xl:max-w-[1400px] 2xl:mx-auto 2xl:px-4"
       initial="hidden"
       animate="visible"
       variants={staggerContainer}
     >
-      <motion.div className="flex w-full flex-col mt-10 mb-6 items-center justify-center px-2 sm:px-4 relative z-30 overflow-visible">
+      <motion.div className="flex w-full flex-col mt-10 mb-6 items-center justify-center px-2 sm:px-4 relative z-30 overflow-visible 2xl:mt-8 2xl:mb-5 2xl:px-6">
         <motion.div
-          className="flex h-auto w-full items-center justify-center border-2 border-[#B091FF] bg-white py-2 sm:border-4 md:border-6 lg:border-8 overflow-visible"
+          className="flex h-auto w-full items-center justify-center border-2 border-[#B091FF] bg-white py-2 sm:border-4 md:border-6 lg:border-8 overflow-visible 2xl:border-[6px] 2xl:py-1.5"
           variants={fadeInUp}
         >
           <motion.div
-            className="relative h-auto w-full border-2 border-[#E7E7E7] bg-white sm:border-4 md:border-6 lg:border-8 pt-10 sm:pt-12 md:pt-14 lg:pt-16 xl:pt-18 overflow-visible"
+            className="relative h-auto w-full border-2 border-[#E7E7E7] bg-white sm:border-4 md:border-6 lg:border-8 pt-10 sm:pt-12 md:pt-14 lg:pt-16 xl:pt-18 overflow-visible 2xl:border-[6px] 2xl:pt-14"
             variants={fadeInUp}
           >
             <Image
@@ -263,19 +252,19 @@ export default function RewardPools() {
               alt="rewards-logo"
               width={514}
               height={100}
-              className="absolute left-[50%] -top-12 -translate-x-1/2 w-[250px] sm:-top-14 sm:w-[300px] md:-top-16 md:w-[350px] lg:-top-15 lg:w-[400px] xl:w-[514px]"
+              className="absolute left-[50%] -top-12 -translate-x-1/2 w-[250px] sm:-top-14 sm:w-[300px] md:-top-16 md:w-[350px] lg:-top-15 lg:w-[400px] xl:w-[514px] 2xl:-top-10 2xl:w-[460px]"
             />
 
             <motion.div
-              className="flex h-full w-full flex-col gap-2 px-2 py-1 sm:gap-3 sm:px-3 sm:py-1 md:gap-4 md:px-4 md:py-2 xl:grid xl:grid-cols-3 xl:gap-6 xl:px-6 xl:py-2 xl:pt-0"
+              className="flex h-full w-full flex-col gap-2 px-2 py-1 sm:gap-3 sm:px-3 sm:py-1 md:gap-4 md:px-4 md:py-2 xl:grid xl:grid-cols-3 xl:gap-6 xl:px-6 xl:py-2 xl:pt-0 2xl:gap-4 2xl:px-5 2xl:py-1"
               variants={staggerContainer}
             >
               <motion.div
-                className="flex flex-col space-y-1 sm:space-y-2 xl:col-span-2 xl:space-y-3"
+                className="flex flex-col space-y-1 sm:space-y-2 xl:col-span-2 xl:space-y-3 2xl:space-y-2"
                 variants={staggerContainer}
               >
                 <motion.div
-                  className="grid w-full grid-cols-1 gap-4 -mt-6 mb-4 sm:-mt-6 sm:mb-3 md:-mt-7 md:mb-4 lg:-mt-8 lg:mb-5 xl:mt-0 xl:mb-5 sm:grid-cols-2 sm:gap-4 md:gap-5"
+                  className="grid w-full grid-cols-1 gap-4 -mt-6 mb-4 sm:-mt-6 sm:mb-3 md:-mt-7 md:mb-4 lg:-mt-8 lg:mb-5 xl:mt-0 xl:mb-5 sm:grid-cols-2 sm:gap-4 md:gap-5 2xl:mb-4 2xl:gap-3"
                   variants={staggerList}
                 >
                   {tabs.map((tab) => (
@@ -292,13 +281,13 @@ export default function RewardPools() {
                 {activeTab === "rewards" ? (
                   <motion.div
                     key="rewards"
-                    className="space-y-2 min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[450px]"
+                    className="space-y-2 min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[450px] 2xl:min-h-[380px]"
                     initial="hidden"
                     animate="visible"
                     variants={staggerContainer}
                   >
                     <motion.div
-                      className="flex min-h-[200px] w-full flex-col border-2 border-[#D7B594] bg-[#11151F] px-2 py-1 sm:border-4 sm:px-3 sm:py-1.5 md:border-[6px] md:px-4 md:py-2"
+                      className="flex min-h-[200px] w-full flex-col border-2 border-[#D7B594] bg-[#11151F] px-2 py-1 sm:border-4 sm:px-3 sm:py-1.5 md:border-[6px] md:px-4 md:py-2 2xl:min-h-[180px] 2xl:px-3 2xl:py-1.5"
                       variants={fadeInUp}
                     >
                       <p className="press-start-2p-regular text-[10px] text-white sm:text-xs md:text-sm lg:text-base">
@@ -330,7 +319,7 @@ export default function RewardPools() {
                                     }`}
                                     variants={fadeInUp}
                                   >
-                                    <div className="relative w-full flex items-center justify-center h-[80px] sm:h-[100px] md:h-[120px] lg:h-[140px]">
+                                    <div className="relative w-full flex items-center justify-center h-20 sm:h-[100px] md:h-[120px] lg:h-[140px]">
                                       <Image
                                         src="/prizelogo.jpg"
                                         alt={`${prize.title} logo`}
@@ -380,7 +369,7 @@ export default function RewardPools() {
                       className="flex w-full flex-col gap-3 text-black pixelify-sans-500 sm:flex-row sm:items-center sm:justify-between sm:gap-2 md:gap-3"
                       variants={fadeInUp}
                     >
-                      <p className="text-xs sm:text-sm md:text-base lg:text-lg">
+                      <p className="text-xs sm:text-sm md:text-base lg:text-lg 2xl:text-base">
                         All Items
                       </p>
                       <div className="relative flex items-center gap-2 sm:gap-3 md:gap-4 lg:gap-6">
@@ -421,67 +410,79 @@ export default function RewardPools() {
                       className="space-y-2 sm:space-y-3 md:space-y-4"
                       variants={staggerList}
                     >
-                      {(() => {
-                        const sortedCards = [...rewardCardsData].sort(
-                          (a, b) => {
-                            switch (sortOption) {
-                              case "value-asc":
-                                return a.value - b.value;
-                              case "value-desc":
-                                return b.value - a.value;
-                              case "quantity-asc":
-                                return a.quantity - b.quantity;
-                              case "quantity-desc":
-                                return b.quantity - a.quantity;
-                              case "recently-added":
-                              default:
-                                return a.daysAgo - b.daysAgo;
+                      <div className="max-h-[190px] sm:max-h-[210px] md:max-h-[230px] overflow-y-auto pr-1 flex flex-col gap-2 sm:gap-3 md:gap-4">
+                        {(() => {
+                          const sortedCards = [...rewardCardsData].sort(
+                            (a, b) => {
+                              switch (sortOption) {
+                                case "value-asc":
+                                  return a.value - b.value;
+                                case "value-desc":
+                                  return b.value - a.value;
+                                case "quantity-asc":
+                                  return a.quantity - b.quantity;
+                                case "quantity-desc":
+                                  return b.quantity - a.quantity;
+                                case "recently-added":
+                                default:
+                                  return a.daysAgo - b.daysAgo;
+                              }
                             }
-                          }
-                        );
-                        return sortedCards;
-                      })().map((card) => (
-                        <motion.div key={card.id} variants={fadeInUp}>
-                          <Alert
-                            borderColor="black"
-                            className={`${card.className} mb-5`}
+                          );
+                          return sortedCards;
+                        })().map((card) => (
+                          <motion.div
+                            key={card.id}
+                            variants={fadeInUp}
+                            className="shrink-0"
                           >
-                            <AlertDescription className="pixelify-sans-500 flex w-full justify-between gap-0.5 px-0.5 py-0 text-black sm:flex-row sm:flex-wrap sm:justify-between sm:gap-1 sm:px-1 sm:py-0 md:flex-nowrap md:gap-2">
-                              <div className="flex items-center gap-1 sm:gap-2">
-                                <div className="h-auto w-8 shrink-0 sm:w-10 md:w-12">
-                                  <Image
-                                    src="/llamao-gen.png"
-                                    alt="llamao"
-                                    width={424}
-                                    height={424}
-                                    className="h-auto w-full"
-                                  />
+                            <Alert
+                              borderColor="black"
+                              className="transition-colors duration-200 hover:bg-[#C9B9F7]/60"
+                            >
+                              <AlertDescription className="pixelify-sans-500 flex w-full flex-wrap items-center justify-between gap-2 px-1 py-1 text-black md:flex-nowrap">
+                                <div className="flex items-center gap-2 min-w-[140px] flex-1">
+                                  <div className="h-auto w-10 shrink-0 sm:w-12 md:w-14">
+                                    <Image
+                                      src={card.thumbnail}
+                                      alt={card.title}
+                                      width={424}
+                                      height={424}
+                                      className="h-auto w-full"
+                                    />
+                                  </div>
+                                  <div className="min-w-0 flex-1">
+                                    <p className="text-[8px] sm:text-[10px] md:text-xs">
+                                      NFT
+                                    </p>
+                                    <p className="press-start-2p-regular wrap-break-word text-[8px] sm:text-[10px] md:text-xs">
+                                      {card.title}
+                                    </p>
+                                  </div>
                                 </div>
-                                <div className="min-w-0 flex-1">
-                                  <p className="text-[8px] sm:text-[10px] md:text-xs">
-                                    NFT
-                                  </p>
-                                  <p className="press-start-2p-regular wrap-break-word text-[8px] sm:text-[10px] md:text-xs">
-                                    LLAMAO #1
+                                {/* <div className="text-[8px] sm:text-[10px] md:text-xs">
+                                  <p>Quantity</p>
+                                  <p className="press-start-2p-regular">
+                                    {card.quantity}
                                   </p>
                                 </div>
-                              </div>
-                              {/* <div className="text-[8px] sm:text-[10px] md:text-xs">
-                                <p>Quantity</p>
-                                <p className="press-start-2p-regular">
-                                  {card.quantity}
-                                </p>
-                              </div> */}
-                              <div className="text-[8px] sm:text-[10px] md:text-xs">
-                                <p>Day Added</p>
-                                <p className="press-start-2p-regular wrap-break-word">
-                                  {card.daysAgo} DAYS AGO
-                                </p>
-                              </div>
-                            </AlertDescription>
-                          </Alert>
-                        </motion.div>
-                      ))}
+                                <div className="text-[8px] sm:text-[10px] md:text-xs">
+                                  <p>Value</p>
+                                  <p className="press-start-2p-regular">
+                                    {card.value.toLocaleString()} MON
+                                  </p>
+                                </div> */}
+                                <div className="text-[8px] sm:text-[10px] md:text-xs">
+                                  <p>Day Added</p>
+                                  <p className="press-start-2p-regular wrap-break-word">
+                                    {card.daysAgo} DAYS AGO
+                                  </p>
+                                </div>
+                              </AlertDescription>
+                            </Alert>
+                          </motion.div>
+                        ))}
+                      </div>
                     </motion.div>
                   </motion.div>
                 ) : (
@@ -562,7 +563,7 @@ export default function RewardPools() {
                                             <span className="text-[8px] uppercase text-[#475160] sm:hidden">
                                               {label}
                                             </span>
-                                            <p className="press-start-2p-regular break-words break-all text-[8px] sm:break-words sm:text-[10px] md:text-xs lg:text-sm overflow-wrap-anywhere">
+                                            <p className="press-start-2p-regular wrap-break-word break-all text-[8px] sm:wrap-break-word sm:text-[10px] md:text-xs lg:text-sm overflow-wrap-anywhere">
                                               {row[key]}
                                             </p>
                                           </div>
@@ -598,7 +599,7 @@ export default function RewardPools() {
                                         <p className="pixelify-sans-500 text-[8px] sm:text-[10px] md:text-xs lg:text-sm">
                                           YOU
                                         </p>
-                                        <p className="press-start-2p-regular break-words break-all text-[8px] sm:break-words sm:text-[10px] md:text-xs lg:text-sm overflow-wrap-anywhere">
+                                        <p className="press-start-2p-regular wrap-break-word break-all text-[8px] sm:wrap-break-word sm:text-[10px] md:text-xs lg:text-sm overflow-wrap-anywhere">
                                           {highlightedParticipant.address}
                                         </p>
                                       </div>
@@ -614,7 +615,7 @@ export default function RewardPools() {
                                             <span className="text-[8px] uppercase text-[#475160] sm:hidden">
                                               {label}
                                             </span>
-                                            <p className="press-start-2p-regular break-words break-all text-[8px] sm:break-words sm:text-[10px] md:text-xs lg:text-sm overflow-wrap-anywhere">
+                                            <p className="press-start-2p-regular wrap-break-word break-all text-[8px] sm:wrap-break-word sm:text-[10px] md:text-xs lg:text-sm overflow-wrap-anywhere">
                                               {highlightedParticipant[key]}
                                             </p>
                                           </div>
@@ -650,14 +651,14 @@ export default function RewardPools() {
               </motion.div>
 
               <motion.div
-                className="flex flex-col gap-2 sm:gap-3 md:grid md:grid-cols-2 md:gap-3 xl:flex xl:flex-col xl:col-span-1 xl:gap-3"
+                className="flex flex-col gap-2 sm:gap-3 md:grid md:grid-cols-2 md:gap-3 xl:flex xl:flex-col xl:col-span-1 xl:gap-3 2xl:gap-2"
                 variants={staggerContainer}
               >
                 <motion.div variants={fadeInUp} className="md:col-span-1">
                   <Alert borderColor="#6043AF">
                     <AlertDescription className="pixelify-sans-500 w-full space-y-1 px-1 py-0.5 text-black sm:space-y-1.5 sm:px-1.5 sm:py-1 md:space-y-2 md:px-2 md:py-1 lg:space-y-3">
                       <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                        <p className="silkscreen-regular text-sm text-[#2245C5] sm:text-base md:text-lg lg:text-xl xl:text-2xl">
+                        <p className="silkscreen-regular text-sm text-[#2245C5] sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-xl">
                           YOUR NFT
                         </p>
                       </div>
@@ -677,7 +678,7 @@ export default function RewardPools() {
                   <Alert borderColor="#6043AF">
                     <AlertDescription className="pixelify-sans-500 w-full space-y-1 px-1 py-0.5 text-black sm:space-y-1.5 sm:px-1.5 sm:py-1 md:space-y-2 md:px-2 md:py-1 lg:space-y-3">
                       <div className="flex w-full items-center justify-between">
-                        <p className="silkscreen-regular text-sm text-[#2245C5] sm:text-base md:text-lg lg:text-xl xl:text-2xl">
+                        <p className="silkscreen-regular text-sm text-[#2245C5] sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-xl">
                           COUNTDOWN TIMER
                         </p>
                       </div>

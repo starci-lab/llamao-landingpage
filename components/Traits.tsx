@@ -1,9 +1,9 @@
-import { Alert } from "./ui/8bit/alert";
 import { Button } from "./ui/8bit/button";
 import { useEffect, useRef, useState } from "react";
 import { Canvas, Rect, FabricImage } from "fabric";
 import * as fabric from "fabric";
 import Image from "next/image";
+import useWindowSize from "@/hooks/useWindowSize";
 
 const deleteIcon =
   "data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg version='1.1' id='Ebene_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='595.275px' height='595.275px' viewBox='200 215 230 470' xml:space='preserve'%3E%3Ccircle style='fill:%23F44336;' cx='299.76' cy='439.067' r='218.516'/%3E%3Cg%3E%3Crect x='267.162' y='307.978' transform='matrix(0.7071 -0.7071 0.7071 0.7071 -222.6202 340.6915)' style='fill:white;' width='65.545' height='262.18'/%3E%3Crect x='266.988' y='308.153' transform='matrix(0.7071 0.7071 -0.7071 0.7071 398.3889 -83.3116)' style='fill:white;' width='65.544' height='262.179'/%3E%3C/g%3E%3C/svg%3E";
@@ -11,9 +11,19 @@ const deleteIcon =
 const Traits = () => {
   const canvasRef = useRef<Canvas | undefined>(undefined);
   const rectRef = useRef<Rect | undefined>(undefined);
+  const clipRectRef = useRef<Rect | undefined>(undefined);
   const imageRef = useRef<FabricImage | undefined>(undefined);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const canvasWrapperRef = useRef<HTMLDivElement | null>(null);
   const [hasImage, setHasImage] = useState(false);
+  const { width: viewportWidth } = useWindowSize();
+  const desiredCardWidth = viewportWidth
+    ? viewportWidth < 500
+      ? Math.floor(viewportWidth * 0.85)
+      : viewportWidth < 630
+      ? 400
+      : 430
+    : 430;
 
   const deleteImgRef = useRef<HTMLImageElement | null>(null);
 
@@ -50,14 +60,42 @@ const Traits = () => {
     ctx.restore();
   }
 
+  const synchronizeCanvasLayout = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const canvasWidth = canvas.getWidth() ?? 400;
+    const canvasHeight = canvas.getHeight() ?? 400;
+
+    if (clipRectRef.current) {
+      clipRectRef.current.set({
+        width: canvasWidth,
+        height: canvasHeight,
+        left: 0,
+        top: 0,
+      });
+      clipRectRef.current.setCoords();
+    }
+
+    if (imageRef.current) {
+      imageRef.current.scaleToWidth(canvasWidth);
+      imageRef.current.set({ left: 0, top: 0 });
+      imageRef.current.setCoords();
+    }
+
+    canvas.requestRenderAll();
+  };
+
   const createRectangle = () => {
     const canvas = canvasRef.current;
     if (!canvas || !deleteImgRef.current) return;
 
     const rect = new Rect({
-      height: 280,
-      width: 200,
+      height: 100,
+      width: 100,
       stroke: "red",
+      left: 0,
+      top: 0,
     });
 
     rect.controls.deleteControl = new fabric.Control({
@@ -72,13 +110,16 @@ const Traits = () => {
     canvas.add(rect);
     canvas.requestRenderAll();
     rectRef.current = rect;
+    synchronizeCanvasLayout();
     return rect;
   };
 
   useEffect(() => {
+    const initialSize = desiredCardWidth;
+
     const c = new Canvas("canvas", {
-      height: 400,
-      width: 400,
+      height: initialSize,
+      width: initialSize,
       backgroundColor: "#f3c684",
     });
 
@@ -99,9 +140,11 @@ const Traits = () => {
 
       // Render rectangle immediately on page load
       const rect = new Rect({
-        height: 280,
-        width: 200,
+        height: 100,
+        width: 100,
         stroke: "red",
+        left: 0,
+        top: 0,
       });
 
       rect.controls.deleteControl = new fabric.Control({
@@ -115,13 +158,22 @@ const Traits = () => {
 
       rectRef.current = rect;
       c.add(rect);
-      c.requestRenderAll();
+      synchronizeCanvasLayout();
     };
 
     return () => {
       c.dispose();
     };
-  }, []);
+  }, [desiredCardWidth]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    canvas.setWidth(desiredCardWidth);
+    canvas.setHeight(desiredCardWidth);
+    synchronizeCanvasLayout();
+  }, [desiredCardWidth]);
 
   const handleAddRectangle = () => {
     createRectangle();
@@ -183,11 +235,9 @@ const Traits = () => {
         });
 
         // Scale image to width = 100% (400px), height auto (maintain aspect ratio)
-        const targetWidth = 400; // Canvas width
+        const targetWidth = canvas.getWidth() ?? 400;
         const originalWidth = fabricImg.width!;
-        const originalHeight = fabricImg.height!;
         const scale = targetWidth / originalWidth;
-        const scaledHeight = originalHeight * scale;
 
         fabricImg.scale(scale);
 
@@ -202,16 +252,17 @@ const Traits = () => {
           const rectClipRect = new Rect({
             left: 0,
             top: 0,
-            width: targetWidth,
-            height: scaledHeight,
+            width: 100,
+            height: 100,
             absolutePositioned: true,
           });
           rect.clipPath = rectClipRect;
+          clipRectRef.current = rectClipRect;
 
           // Move rectangle to top (bring to front)
           canvas.bringObjectToFront(rect);
         }
-        canvas.requestRenderAll();
+        synchronizeCanvasLayout();
       } catch (error) {
         console.error("Error loading image:", error);
       }
@@ -279,94 +330,149 @@ const Traits = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center md:items-stretch gap-6 md:gap-8">
-      <Alert
-        borderColor="#1E3445"
-        className="max-w-[430px] max-h-[80%] mx-auto flex flex-col justify-between p-0 gap-0 self-stretch"
-      >
-        <div className="relative">
-          <canvas id="canvas" />
-          {hasImage && (
-            <div className="absolute top-4 left-0 right-0 flex justify-center gap-4 md:gap-0 md:justify-between px-4">
-              <Button
-                onClick={handleFlip}
-                size={"sm"}
-                className="bg-[#2BEBC8] hover:bg-[#25D4B3] text-black px-4 py-2 text-sm font-semibold"
-              >
-                Flip
-              </Button>
-              <Button
-                onClick={handleDeleteImage}
-                size={"sm"}
-                className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 text-sm font-semibold"
-              >
-                ✕
-              </Button>
+    <div className="flex flex-col md:flex-row items-center md:items-stretch gap-0 md:gap-8 md:justify-center lg:justify-start">
+      <div className="w-full flex justify-center md:w-full md:flex md:justify-center lg:w-auto lg:block">
+        <div
+          className="relative mx-auto m-1.5 flex flex-col justify-between"
+          style={{ width: desiredCardWidth }}
+        >
+          <div className="relative z-10 flex flex-col bg-[#FBE9C6]">
+            <div className="relative" ref={canvasWrapperRef}>
+              <canvas id="canvas" className="w-full h-auto block" />
+              {hasImage && (
+                <div className="absolute top-4 left-0 right-0 flex justify-center gap-4 md:gap-0 md:justify-between px-4">
+                  <Button
+                    onClick={handleFlip}
+                    size={"sm"}
+                    className="bg-[#2BEBC8] hover:bg-[#25D4B3] text-black px-4 py-2 text-sm font-semibold"
+                  >
+                    Flip
+                  </Button>
+                  <Button
+                    onClick={handleDeleteImage}
+                    size={"sm"}
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 text-sm font-semibold"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept="image/*"
-          onChange={handleImageUpload}
-          className="hidden"
-        />
-        <div className="bg-[#E8DEFF] w-full px-3 py-1 pb-4">
-          <p className="silkscreen-regular text-center tracking-tight text-3xl text-[#2245C5]">
-            Llamao generator
-          </p>
-          <div className="mt-5 w-full flex justify-center">
-            <Button
-              onClick={handleButtonClick}
-              size={"sm"}
-              className="w-[95%] bg-[#DD1A21] hover:bg-[#FF2A31] py-5 hover:scale-105 hover:brightness-110 transition-all mt-2 duration-200"
-            >
-              <p className="pixelify-sans-500 text-2xl">
-                {hasImage ? "SAVE IMAGE" : "ADD IMAGE"}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="hidden"
+            />
+            <div className="bg-[#E8DEFF] w-full px-4 py-4">
+              <p className="silkscreen-regular text-center tracking-tight text-3xl text-[#2245C5]">
+                Llamao generator
               </p>
-            </Button>
+              <div className="mt-2 w-full flex items-center justify-center">
+                <Button
+                  onClick={handleButtonClick}
+                  size={"sm"}
+                  className="w-full bg-[#DD1A21] hover:bg-[#FF2A31] py-5 hover:scale-105 hover:brightness-110 transition-all duration-200"
+                >
+                  <p className="pixelify-sans-500 text-2xl">
+                    {hasImage ? "SAVE IMAGE" : "ADD IMAGE"}
+                  </p>
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <div className="pointer-events-none absolute inset-0">
+            <div
+              className="absolute -top-1.5 left-1.5 w-1/2 h-1.5"
+              style={{ backgroundColor: "#1E3445" }}
+            />
+            <div
+              className="absolute -top-1.5 right-1.5 w-1/2 h-1.5"
+              style={{ backgroundColor: "#1E3445" }}
+            />
+            <div
+              className="absolute -bottom-1.5 left-1.5 w-1/2 h-1.5"
+              style={{ backgroundColor: "#1E3445" }}
+            />
+            <div
+              className="absolute -bottom-1.5 right-1.5 w-1/2 h-1.5"
+              style={{ backgroundColor: "#1E3445" }}
+            />
+            <div
+              className="absolute top-0 left-0 size-1.5"
+              style={{ backgroundColor: "#1E3445" }}
+            />
+            <div
+              className="absolute top-0 right-0 size-1.5"
+              style={{ backgroundColor: "#1E3445" }}
+            />
+            <div
+              className="absolute bottom-0 left-0 size-1.5"
+              style={{ backgroundColor: "#1E3445" }}
+            />
+            <div
+              className="absolute bottom-0 right-0 size-1.5"
+              style={{ backgroundColor: "#1E3445" }}
+            />
+            <div
+              className="absolute top-1.5 -left-1.5 h-1/2 w-1.5"
+              style={{ backgroundColor: "#1E3445" }}
+            />
+            <div
+              className="absolute bottom-1.5 -left-1.5 h-1/2 w-1.5"
+              style={{ backgroundColor: "#1E3445" }}
+            />
+            <div
+              className="absolute top-1.5 -right-1.5 h-1/2 w-1.5"
+              style={{ backgroundColor: "#1E3445" }}
+            />
+            <div
+              className="absolute bottom-1.5 -right-1.5 h-1/2 w-1.5"
+              style={{ backgroundColor: "#1E3445" }}
+            />
           </div>
         </div>
-      </Alert>
-      <div className="flex flex-row flex-wrap justify-center gap-4 w-full md:flex-col md:justify-around md:ml-8 md:w-auto">
+      </div>
+      <div className="flex flex-row flex-wrap justify-center gap-1.5 w-full md:flex-col md:justify-around lg:ml-8 md:w-auto -mt-2 md:mt-0">
         <button
           type="button"
           onClick={handleAddRectangle}
-          className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center"
+          className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center w-[90px] h-[220px] md:w-auto md:h-auto"
         >
           <Image
             src="/traits-btn.png"
             alt="traits button"
             width={100}
             height={300}
-            className="object-contain"
+            className="object-contain w-full h-full"
           />
         </button>
         <button
           type="button"
           onClick={handleAddRectangle}
-          className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center"
+          className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center w-[90px] h-[220px] md:w-auto md:h-auto"
         >
           <Image
             src="/traits-btn.png"
             alt="traits button"
             width={100}
             height={300}
-            className="object-contain"
+            className="object-contain w-full h-full"
           />
         </button>
         <button
           type="button"
           onClick={handleAddRectangle}
-          className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center"
+          className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center w-[90px] h-[220px] md:w-auto md:h-auto"
         >
           <Image
             src="/traits-btn.png"
             alt="traits button"
             width={100}
             height={300}
-            className="object-contain"
+            className="object-contain w-full h-full"
           />
         </button>
       </div>
