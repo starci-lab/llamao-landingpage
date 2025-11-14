@@ -275,7 +275,7 @@ export default function RewardPools() {
                 variants={staggerContainer}
               >
                 <motion.div
-                  className="grid w-full grid-cols-1 gap-4 -mt-6 mb-4 sm:-mt-6 sm:mb-3 md:-mt-7 md:mb-4 lg:-mt-8 lg:mb-5 xl:mt-0 xl:mb-0 sm:grid-cols-2 sm:gap-4 md:gap-5"
+                  className="grid w-full grid-cols-1 gap-4 -mt-6 mb-4 sm:-mt-6 sm:mb-3 md:-mt-7 md:mb-4 lg:-mt-8 lg:mb-5 xl:mt-0 xl:mb-5 sm:grid-cols-2 sm:gap-4 md:gap-5"
                   variants={staggerList}
                 >
                   {tabs.map((tab) => (
@@ -377,7 +377,7 @@ export default function RewardPools() {
                     </motion.div>
 
                     <motion.div
-                      className="flex w-full flex-col gap-1 text-black pixelify-sans-500 sm:flex-row sm:items-center sm:justify-between sm:gap-2 md:gap-3"
+                      className="flex w-full flex-col gap-3 text-black pixelify-sans-500 sm:flex-row sm:items-center sm:justify-between sm:gap-2 md:gap-3"
                       variants={fadeInUp}
                     >
                       <p className="text-xs sm:text-sm md:text-base lg:text-lg">
@@ -442,8 +442,11 @@ export default function RewardPools() {
                         return sortedCards;
                       })().map((card) => (
                         <motion.div key={card.id} variants={fadeInUp}>
-                          <Alert borderColor="black" className={card.className}>
-                            <AlertDescription className="pixelify-sans-500 flex w-full flex-col gap-0.5 px-0.5 py-0 text-black sm:flex-row sm:flex-wrap sm:justify-between sm:gap-1 sm:px-1 sm:py-0 md:flex-nowrap md:gap-2">
+                          <Alert
+                            borderColor="black"
+                            className={`${card.className} mb-5`}
+                          >
+                            <AlertDescription className="pixelify-sans-500 flex w-full justify-between gap-0.5 px-0.5 py-0 text-black sm:flex-row sm:flex-wrap sm:justify-between sm:gap-1 sm:px-1 sm:py-0 md:flex-nowrap md:gap-2">
                               <div className="flex items-center gap-1 sm:gap-2">
                                 <div className="h-auto w-8 shrink-0 sm:w-10 md:w-12">
                                   <Image
@@ -463,12 +466,12 @@ export default function RewardPools() {
                                   </p>
                                 </div>
                               </div>
-                              <div className="text-[8px] sm:text-[10px] md:text-xs">
+                              {/* <div className="text-[8px] sm:text-[10px] md:text-xs">
                                 <p>Quantity</p>
                                 <p className="press-start-2p-regular">
                                   {card.quantity}
                                 </p>
-                              </div>
+                              </div> */}
                               <div className="text-[8px] sm:text-[10px] md:text-xs">
                                 <p>Day Added</p>
                                 <p className="press-start-2p-regular wrap-break-word">
