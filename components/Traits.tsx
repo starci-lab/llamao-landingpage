@@ -441,7 +441,7 @@ const Traits = () => {
         <button
           type="button"
           onClick={handleAddAvatarImage1}
-          className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center w-[60px] h-[150px] md:w-auto md:h-auto"
+          className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center lg:h-[25%] lg:w-auto w-[60px] h-[150px] md:w-auto md:h-auto"
         >
           <Image
             src="/traits-btn1.png"
@@ -454,7 +454,7 @@ const Traits = () => {
         <button
           type="button"
           onClick={handleAddAvatarImage2}
-          className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center w-[60px] h-[150px] md:w-auto md:h-auto"
+          className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center lg:h-[25%] lg:w-auto w-[60px] h-[150px] md:w-auto md:h-auto"
         >
           <Image
             src="/traits-btn2.png"
@@ -467,7 +467,7 @@ const Traits = () => {
         <button
           type="button"
           onClick={handleAddAvatarImage3}
-          className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center w-[60px] h-[150px] md:w-auto md:h-auto"
+          className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center w-[60px] h-[150px] lg:h-[25%] lg:w-auto md:w-auto md:h-auto"
         >
           <Image
             src="/traits-btn3.png"
