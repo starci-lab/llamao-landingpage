@@ -273,6 +273,18 @@ const Traits = () => {
     void addEditableAvatarImage("/llamao_avatar3.png");
   };
 
+  const handleFlipSelectedObject = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const activeObject = canvas.getActiveObject();
+    if (!activeObject || activeObject === imageRef.current) return;
+
+    activeObject.set("flipX", !activeObject.flipX);
+    activeObject.setCoords?.();
+    canvas.requestRenderAll();
+  };
+
   const handleDeleteImage = () => {
     const canvas = canvasRef.current;
     const image = imageRef.current;
@@ -330,7 +342,14 @@ const Traits = () => {
             <div className="relative" ref={canvasWrapperRef}>
               <canvas id="canvas" className="w-full h-auto block" />
               {hasImage && (
-                <div className="absolute top-4 right-0 flex justify-end px-4">
+                <div className="absolute top-4 left-0 right-0 flex justify-between px-4 gap-2">
+                  <Button
+                    onClick={handleFlipSelectedObject}
+                    size="sm"
+                    className="bg-[#5B4B8A] hover:bg-[#6C5AA5] text-white px-4 py-2 text-sm font-semibold"
+                  >
+                    Flip
+                  </Button>
                   <Button
                     onClick={handleDeleteImage}
                     size="sm"
@@ -425,7 +444,7 @@ const Traits = () => {
           className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center w-[60px] h-[150px] md:w-auto md:h-auto"
         >
           <Image
-            src="/traits-btn.png"
+            src="/traits-btn1.png"
             alt="traits button"
             width={100}
             height={300}
@@ -438,7 +457,7 @@ const Traits = () => {
           className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center w-[60px] h-[150px] md:w-auto md:h-auto"
         >
           <Image
-            src="/traits-btn.png"
+            src="/traits-btn2.png"
             alt="traits button"
             width={100}
             height={300}
@@ -451,7 +470,7 @@ const Traits = () => {
           className="cursor-pointer hover:opacity-80 transition-opacity flex justify-center w-[60px] h-[150px] md:w-auto md:h-auto"
         >
           <Image
-            src="/traits-btn.png"
+            src="/traits-btn3.png"
             alt="traits button"
             width={100}
             height={300}

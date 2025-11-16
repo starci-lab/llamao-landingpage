@@ -56,10 +56,11 @@ const featuredPrizes = [
   { title: "Prize 10", description: "NFT of Llamao" },
 ];
 const rewardSummaries = [
-  { id: "estimated-value", label: "Total Rewards", value: "5000 MON" },
-  { id: "last-updated", label: "Last Updated", value: "5 days ago" },
+  { id: "estimated-value", label: "Total Rewards", value: "0 MON" },
+  { id: "last-updated", label: "Last Updated", value: "24 hrs ago" },
 ];
 
+/*
 const rewardCardsData = Array.from({ length: 10 }, (_, index) => ({
   id: `reward-${index}`,
   title: `LLAMAO #${index + 1}`,
@@ -68,6 +69,7 @@ const rewardCardsData = Array.from({ length: 10 }, (_, index) => ({
   daysAgo: index + 1,
   thumbnail: "/llamao-gen.png",
 }));
+*/
 
 type ParticipantRow = {
   id: string;
@@ -257,7 +259,7 @@ export default function RewardPools() {
             />
 
             <motion.div
-              className="flex h-full w-full flex-col gap-2 px-2 py-1 sm:gap-3 sm:px-3 sm:py-1 md:gap-4 md:px-4 md:py-2 xl:grid xl:grid-cols-3 xl:gap-6 xl:px-6 xl:py-2 xl:pt-0 2xl:gap-4 2xl:px-5 2xl:py-1"
+              className="flex h-full w-full flex-col gap-2 px-2 py-1 pb-4 sm:gap-3 sm:px-3 sm:py-1 sm:pb-6 md:gap-4 md:px-4 md:py-2 md:pb-8 xl:grid xl:grid-cols-3 xl:gap-6 xl:px-6 xl:py-2 xl:pb-10 xl:pt-0 2xl:gap-4 2xl:px-5 2xl:py-1 2xl:pb-8"
               variants={staggerContainer}
             >
               <motion.div
@@ -288,61 +290,73 @@ export default function RewardPools() {
                     variants={staggerContainer}
                   >
                     <motion.div
-                      className="flex min-h-[200px] w-full flex-col border-2 border-[#D7B594] bg-[#11151F] px-2 py-1 sm:border-4 sm:px-3 sm:py-1.5 md:border-[6px] md:px-4 md:py-2 2xl:min-h-[180px] 2xl:px-3 2xl:py-1.5"
+                      className="relative flex min-h-[200px] w-full flex-col border-2 border-[#D7B594] bg-[#11151F] px-2 py-1 sm:border-4 sm:px-3 sm:py-1.5 md:border-[6px] md:px-4 md:py-2 2xl:min-h-[180px] 2xl:px-3 2xl:py-1.5"
                       variants={fadeInUp}
                     >
-                      <p className="press-start-2p-regular text-[10px] text-white sm:text-xs md:text-sm lg:text-base">
-                        Featured Prizes
-                      </p>
-                      <div className="mt-2 sm:mt-3 md:mt-3 lg:mt-4">
-                        <Carousel
-                          setApi={setApi}
-                          opts={{
-                            align: "start",
-                            loop: true,
-                            slidesToScroll: 1,
-                          }}
-                          className="w-full"
+                      <div className="absolute inset-0 z-10 flex items-center justify-center px-4 text-center pointer-events-none">
+                        <motion.div
+                          className="press-start-2p-regular w-full max-w-[360px] rounded bg-[#A68BFF]/95 px-4 py-2.5 text-[9px] text-white shadow-[4px_4px_0_0_#4F2A8A] sm:text-[10px] md:text-xs"
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.3 }}
                         >
-                          <CarouselContent className="-ml-2 sm:-ml-2 md:-ml-3 lg:-ml-3">
-                            {featuredPrizes.map((prize, index) => {
-                              const isSelected = index === current;
-                              return (
-                                <CarouselItem
-                                  key={prize.title}
-                                  className="pl-2 sm:pl-2 md:pl-3 lg:pl-3 basis-1/5"
-                                >
-                                  <motion.div
-                                    className={`press-start-2p-regular flex h-full flex-col items-center justify-start gap-0.5 bg-[#090B12] px-1.5 py-0.5 text-center text-[8px] leading-tight text-white transition-transform duration-150 ease-out hover:scale-[1.03] sm:gap-1 sm:px-2 sm:py-0.5 sm:text-[10px] sm:leading-5 md:gap-1 md:px-3 md:py-1 md:text-xs md:leading-6 ${
-                                      isSelected
-                                        ? "border border-[#F4B63D] shadow-[0_0_0_1px_#1A1D26] sm:border-2 sm:shadow-[0_0_0_2px_#1A1D26] md:border-[3px] md:shadow-[0_0_0_3px_#1A1D26]"
-                                        : "border border-[#F4B63D]/10 shadow-[0_0_0_1px_#1A1D26/30] sm:border-2 sm:shadow-[0_0_0_2px_#1A1D26/30] md:border-[3px] md:shadow-[0_0_0_3px_#1A1D26/30]"
-                                    }`}
-                                    variants={fadeInUp}
+                          Rewards loading… check back soon!
+                        </motion.div>
+                      </div>
+                      <div className="blur-sm pointer-events-none opacity-90">
+                        <p className="press-start-2p-regular text-[10px] text-white sm:text-xs md:text-sm lg:text-base">
+                          Featured Prizes
+                        </p>
+                        <div className="mt-2 sm:mt-3 md:mt-3 lg:mt-4">
+                          <Carousel
+                            setApi={setApi}
+                            opts={{
+                              align: "start",
+                              loop: true,
+                              slidesToScroll: 1,
+                            }}
+                            className="w-full"
+                          >
+                            <CarouselContent className="-ml-2 sm:-ml-2 md:-ml-3 lg:-ml-3">
+                              {featuredPrizes.map((prize, index) => {
+                                const isSelected = index === current;
+                                return (
+                                  <CarouselItem
+                                    key={prize.title}
+                                    className="pl-2 sm:pl-2 md:pl-3 lg:pl-3 basis-1/5"
                                   >
-                                    <div className="relative w-full flex items-center justify-center h-auto py-2">
-                                      <Image
-                                        src="/prizelogo.jpg"
-                                        alt={`${prize.title} logo`}
-                                        width={110}
-                                        height={110}
-                                        className="h-full w-auto object-contain"
-                                      />
-                                    </div>
-                                    <div className="flex flex-col gap-0.5 shrink-0 w-full text-center px-1 max-w-[60px] sm:max-w-[70px] md:max-w-20 mx-auto">
-                                      <span className="wrap-break-word whitespace-normal min-h-[1.2em] flex items-center justify-center leading-tight">
-                                        {prize.title}
-                                      </span>
-                                      <span className="text-[7px] sm:text-[8px] md:text-[10px] whitespace-normal wrap-break-word min-h-[1.2em] flex items-center justify-center leading-tight">
-                                        {prize.description}
-                                      </span>
-                                    </div>
-                                  </motion.div>
-                                </CarouselItem>
-                              );
-                            })}
-                          </CarouselContent>
-                        </Carousel>
+                                    <motion.div
+                                      className={`press-start-2p-regular flex h-full flex-col items-center justify-start gap-0.5 bg-[#090B12] px-1.5 py-0.5 text-center text-[8px] leading-tight text-white transition-transform duration-150 ease-out hover:scale-[1.03] sm:gap-1 sm:px-2 sm:py-0.5 sm:text-[10px] sm:leading-5 md:gap-1 md:px-3 md:py-1 md:text-xs md:leading-6 ${
+                                        isSelected
+                                          ? "border border-[#F4B63D] shadow-[0_0_0_1px_#1A1D26] sm:border-2 sm:shadow-[0_0_0_2px_#1A1D26] md:border-[3px] md:shadow-[0_0_0_3px_#1A1D26]"
+                                          : "border border-[#F4B63D]/10 shadow-[0_0_0_1px_#1A1D26/30] sm:border-2 sm:shadow-[0_0_0_2px_#1A1D26/30] md:border-[3px] md:shadow-[0_0_0_3px_#1A1D26/30]"
+                                      }`}
+                                      variants={fadeInUp}
+                                    >
+                                      <div className="relative w-full flex items-center justify-center h-auto py-2">
+                                        <Image
+                                          src="/prizelogo.jpg"
+                                          alt={`${prize.title} logo`}
+                                          width={110}
+                                          height={110}
+                                          className="h-full w-auto object-contain"
+                                        />
+                                      </div>
+                                      <div className="flex flex-col gap-0.5 shrink-0 w-full text-center px-1 max-w-[60px] sm:max-w-[70px] md:max-w-20 mx-auto">
+                                        <span className="wrap-break-word whitespace-normal min-h-[1.2em] flex items-center justify-center leading-tight">
+                                          {prize.title}
+                                        </span>
+                                        <span className="text-[7px] sm:text-[8px] md:text-[10px] whitespace-normal wrap-break-word min-h-[1.2em] flex items-center justify-center leading-tight">
+                                          {prize.description}
+                                        </span>
+                                      </div>
+                                    </motion.div>
+                                  </CarouselItem>
+                                );
+                              })}
+                            </CarouselContent>
+                          </Carousel>
+                        </div>
                       </div>
                     </motion.div>
 
@@ -410,79 +424,19 @@ export default function RewardPools() {
                       className="space-y-2 sm:space-y-3 md:space-y-4"
                       variants={staggerList}
                     >
-                      <div className="max-h-32 sm:max-h-36 md:max-h-40 overflow-y-auto pr-1 flex flex-col gap-1.5 sm:gap-2 md:gap-2.5">
-                        {(() => {
-                          const sortedCards = [...rewardCardsData].sort(
-                            (a, b) => {
-                              switch (sortOption) {
-                                case "value-asc":
-                                  return a.value - b.value;
-                                case "value-desc":
-                                  return b.value - a.value;
-                                case "quantity-asc":
-                                  return a.quantity - b.quantity;
-                                case "quantity-desc":
-                                  return b.quantity - a.quantity;
-                                case "recently-added":
-                                default:
-                                  return a.daysAgo - b.daysAgo;
-                              }
-                            }
-                          );
-                          return sortedCards;
-                        })().map((card) => (
-                          <motion.div
-                            key={card.id}
-                            variants={fadeInUp}
-                            className="shrink-0"
-                          >
-                            <Alert
-                              borderColor="black"
-                              className="transition-colors duration-200 hover:bg-[#C9B9F7]/60 py-1"
-                            >
-                              <AlertDescription className="pixelify-sans-500 flex w-full flex-wrap items-center justify-between gap-1.5 px-1 py-0 text-black md:flex-nowrap">
-                                <div className="flex items-center gap-1.5 min-w-[120px] flex-1">
-                                  <div className="h-auto w-8 shrink-0 sm:w-10 md:w-12">
-                                    <Image
-                                      src={card.thumbnail}
-                                      alt={card.title}
-                                      width={424}
-                                      height={424}
-                                      className="h-full w-full object-contain"
-                                    />
-                                  </div>
-                                  <div className="min-w-0 flex-1">
-                                    <p className="text-[7px] sm:text-[9px] md:text-xs">
-                                      NFT
-                                    </p>
-                                    <p className="press-start-2p-regular wrap-break-word text-[7px] sm:text-[9px] md:text-xs">
-                                      {card.title}
-                                    </p>
-                                  </div>
-                                </div>
-                                {/* <div className="text-[8px] sm:text-[10px] md:text-xs">
-                                  <p>Quantity</p>
-                                  <p className="press-start-2p-regular">
-                                    {card.quantity}
-                                  </p>
-                                </div>
-                                <div className="text-[8px] sm:text-[10px] md:text-xs">
-                                  <p>Value</p>
-                                  <p className="press-start-2p-regular">
-                                    {card.value.toLocaleString()} MON
-                                  </p>
-                                </div> */}
-                                <div className="text-[7px] sm:text-[9px] md:text-xs">
-                                  <p>Day Added</p>
-                                  <p className="press-start-2p-regular wrap-break-word">
-                                    {card.daysAgo} DAYS AGO
-                                  </p>
-                                </div>
-                              </AlertDescription>
-                            </Alert>
-                          </motion.div>
-                        ))}
-                      </div>
+                      <motion.div
+                        className="press-start-2p-regular w-full rounded border border-dashed border-[#A68BFF] bg-[#F5EDFF] px-4 py-3 text-center text-[9px] text-[#3C2782] sm:text-[10px] md:text-xs"
+                        variants={fadeInUp}
+                      >
+                        Rewards will be available soon. Please check back later.
+                      </motion.div>
+                      {/**
+                       * Previous All Items detail list temporarily disabled per product request.
+                       *
+                       * <div className="relative space-y-2 sm:space-y-3 md:space-y-4">
+                       *   ...existing scrollable list...
+                       * </div>
+                       */}
                     </motion.div>
                   </motion.div>
                 ) : (
@@ -650,12 +604,15 @@ export default function RewardPools() {
               </motion.div>
 
               <motion.div
-                className="flex flex-col gap-2 sm:gap-3 md:grid md:grid-cols-2 md:gap-3 xl:flex xl:flex-col xl:col-span-1 xl:gap-3 2xl:gap-2"
+                className="flex flex-col gap-4 sm:gap-5 md:grid md:grid-cols-2 md:gap-6 md:auto-rows-[1fr] lg:gap-8 xl:flex xl:flex-col xl:col-span-1 xl:gap-6 2xl:gap-4"
                 variants={staggerContainer}
               >
-                <motion.div variants={fadeInUp} className="md:col-span-1">
-                  <Alert borderColor="#6043AF">
-                    <AlertDescription className="pixelify-sans-500 w-full space-y-1 px-1 py-0.5 text-black sm:space-y-1.5 sm:px-1.5 sm:py-1 md:space-y-2 md:px-2 md:py-1 lg:space-y-3">
+                <motion.div
+                  variants={fadeInUp}
+                  className="md:col-span-1 h-full"
+                >
+                  <Alert borderColor="#6043AF" className="h-full">
+                    <AlertDescription className="pixelify-sans-500 flex h-full flex-col gap-2 px-1 py-0.5 text-black sm:gap-3 sm:px-1.5 sm:py-1 md:gap-3 md:px-2 md:py-1 lg:gap-4">
                       <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                         <p className="silkscreen-regular text-sm text-[#2245C5] sm:text-base md:text-lg lg:text-xl xl:text-xl 2xl:text-xl">
                           YOUR NFT
@@ -673,9 +630,12 @@ export default function RewardPools() {
                   </Alert>
                 </motion.div>
 
-                <motion.div variants={fadeInUp} className="md:col-span-1">
-                  <Alert borderColor="#6043AF">
-                    <AlertDescription className="pixelify-sans-500 w-full space-y-1 px-1 py-0.5 text-black sm:space-y-1.5 sm:px-1.5 sm:py-1 md:space-y-2 md:px-1 md:py-1 lg:space-y-3">
+                <motion.div
+                  variants={fadeInUp}
+                  className="md:col-span-1 h-full"
+                >
+                  <Alert borderColor="#6043AF" className="h-full">
+                    <AlertDescription className="pixelify-sans-500 flex h-full flex-col gap-2 px-1 py-0.5 text-black sm:gap-3 sm:px-1.5 sm:py-1 md:gap-3 md:px-1 md:py-1 lg:gap-4">
                       <div className="flex w-full items-center justify-between">
                         <p className="silkscreen-regular text-sm text-[#2245C5] sm:text-base md:text-lg lg:text-xl xl:tracking-tight xl:text-xl 2xl:text-xl">
                           COUNTDOWN TIMER
