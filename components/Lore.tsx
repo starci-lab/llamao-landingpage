@@ -106,7 +106,7 @@ const Lore = () => {
 
   const slideVariants = {
     enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
+      x: direction > 0 ? 200 : -200,
       opacity: 0,
     }),
     center: {
@@ -114,14 +114,14 @@ const Lore = () => {
       opacity: 1,
     },
     exit: (direction: number) => ({
-      x: direction > 0 ? -300 : 300,
+      x: direction > 0 ? -200 : 200,
       opacity: 0,
     }),
   };
 
   const slideTransition = {
-    x: { type: "spring" as const, stiffness: 400, damping: 35 },
-    opacity: { duration: 0.15 },
+    x: { type: "spring" as const, stiffness: 650, damping: 28, mass: 0.8 },
+    opacity: { duration: 0.1 },
   };
 
   return (
@@ -161,7 +161,7 @@ const Lore = () => {
                   key={`name-${currentIndex}`}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
+                  transition={{ delay: 0.05 }}
                   className="silkscreen-regular text-xl sm:text-2xl text-[#2245C5]"
                 >
                   {currentItem.name}
@@ -170,7 +170,7 @@ const Lore = () => {
                   key={`content-${currentIndex}`}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 }}
+                  transition={{ delay: 0.1 }}
                   className="pixelify-sans-400 text-[#1E3445] text-sm md:text-base"
                 >
                   {currentItem.content}

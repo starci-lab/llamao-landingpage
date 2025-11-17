@@ -21,7 +21,7 @@ const NavigationBar = () => {
     { href: "/", label: "Llome", variant: "default" },
     { href: "/about", label: "Llabout", variant: "default" },
     { href: "/lore", label: "Llore", variant: "default" },
-    { href: "/traits", label: "Lltraits", variant: "default" },
+    { href: "/chillmao", label: "Chillmao", variant: "default" },
     { href: "/reward-pools", label: "Reward Pools", variant: "cta" },
   ];
 

@@ -19,7 +19,14 @@ const About = () => {
             Llamao is a mindfulness-first IP brand building a wellness ecosystem
             focused on calm, clarity, and balance. The core is Llamaoism, a
             mindful philosophy that helps people stay mentally stable, true to
-            themselves, and fully present
+            themselves, and fully present{" "}
+            <a
+              href="https://x.com/llamao_/status/1986065073954291942?s=20"
+              target="_blank"
+              className="text-blue-500"
+            >
+              (Read more)
+            </a>
           </p>
         </div>
       </AlertDescription>

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import PageLayout from "@/components/PageLayout";
 import Traits from "@/components/Traits";
 
-export default function TraitsPage() {
+export default function ChillmaoPage() {
   return (
     <PageLayout>
       <motion.div
