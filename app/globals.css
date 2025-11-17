@@ -187,7 +187,7 @@ body {
 /* Reward Pools Scrollbar Styles */
 .reward-pools-scroll {
   scrollbar-width: thin;
-  scrollbar-color: #B091FF transparent;
+  scrollbar-color: #b091ff transparent;
   scrollbar-gutter: stable;
 }
 
@@ -202,13 +202,13 @@ body {
 }
 
 .reward-pools-scroll::-webkit-scrollbar-thumb {
-  background: #B091FF;
+  background: #b091ff;
   border-radius: 6px;
   border: none;
 }
 
 .reward-pools-scroll::-webkit-scrollbar-thumb:hover {
-  background: #8866D4;
+  background: #8866d4;
 }
 
 .reward-pools-scroll::-webkit-scrollbar-corner {

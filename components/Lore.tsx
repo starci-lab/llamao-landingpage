@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Alert } from "./ui/8bit/alert";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const loreItems = [
@@ -91,6 +91,8 @@ He smiles quietly, because peace can’t be rugged.`,
 const Lore = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [maxCardHeight, setMaxCardHeight] = useState(0);
+  const cardRef = useRef<HTMLDivElement | null>(null);
 
   const handlePrevious = () => {
     setDirection(-1);
@@ -124,6 +126,25 @@ const Lore = () => {
     opacity: { duration: 0.1 },
   };
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const node = cardRef.current;
+    if (!node) return;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setMaxCardHeight((prev) => Math.max(prev, entry.contentRect.height));
+      }
+    });
+
+    resizeObserver.observe(node);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [currentIndex]);
+
   return (
     <div className="flex items-center gap-6 sm:gap-12 justify-center -mt-2 sm:-mt-6 scale-90 sm:scale-95 xl:scale-90 xl:origin-top 2xl:scale-100">
       <motion.div
@@ -134,7 +155,12 @@ const Lore = () => {
       >
         <Image src={"/arrow.svg"} alt="leftarrow" width={90} height={135} />
       </motion.div>
-      <div className="relative max-h-[90%] w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[400px] 2xl:max-w-[430px]">
+      <div
+        className="relative max-h-[90%] w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[400px] 2xl:max-w-[430px]"
+        style={{
+          minHeight: maxCardHeight > 0 ? `${maxCardHeight}px` : undefined,
+        }}
+      >
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={currentIndex}
@@ -144,6 +170,7 @@ const Lore = () => {
             animate="center"
             exit="exit"
             transition={slideTransition}
+            ref={cardRef}
           >
             <Alert
               borderColor="#1E3445"

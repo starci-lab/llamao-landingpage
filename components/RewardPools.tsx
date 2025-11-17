@@ -4,7 +4,7 @@ import { Alert, AlertDescription } from "@/components/ui/8bit/alert";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useWindowSize from "@/hooks/useWindowSize";
 import {
   Carousel,
@@ -231,7 +231,6 @@ const rewardSummaries = [
     label: "Total Prizes",
     value: `${rewardCounts.nfts} NFTs + ${rewardCounts.tokens} Tokens`,
   },
-  { id: "last-updated", label: "Last Updated", value: "24 hrs ago" },
 ];
 
 /*
@@ -285,7 +284,96 @@ const tabs: { key: TabKey; label: string }[] = [
   { key: "participants", label: "Participants" },
 ];
 
-function BlurredBackgroundButton({ text, id }: { text: string; id: string }) {
+function AutoFitText({
+  text,
+  maxFontPx = 16,
+  minFontPx = 10,
+  className = "",
+}: {
+  text: string;
+  maxFontPx?: number;
+  minFontPx?: number;
+  className?: string;
+}) {
+  const textRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const element = textRef.current;
+    if (!element) return;
+
+    let frameId: number | null = null;
+
+    const applyFit = () => {
+      if (!element) return;
+      const parentWidth =
+        element.parentElement?.clientWidth ?? element.clientWidth;
+      if (!parentWidth) return;
+      let currentSize = maxFontPx;
+      element.style.fontSize = `${currentSize}px`;
+
+      while (currentSize > minFontPx && element.scrollWidth > parentWidth) {
+        currentSize -= 0.5;
+        element.style.fontSize = `${currentSize}px`;
+      }
+    };
+
+    const scheduleFit = () => {
+      if (frameId) {
+        cancelAnimationFrame(frameId);
+      }
+      frameId = requestAnimationFrame(applyFit);
+    };
+
+    scheduleFit();
+
+    const resizeObserver =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(scheduleFit)
+        : null;
+
+    if (resizeObserver) {
+      resizeObserver.observe(element);
+      if (element.parentElement) {
+        resizeObserver.observe(element.parentElement);
+      }
+    }
+
+    window.addEventListener("resize", scheduleFit);
+
+    return () => {
+      if (frameId) {
+        cancelAnimationFrame(frameId);
+      }
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+      window.removeEventListener("resize", scheduleFit);
+    };
+  }, [text, maxFontPx, minFontPx]);
+
+  return (
+    <span
+      ref={textRef}
+      className={`block truncate ${className}`}
+      style={{ lineHeight: 1.2 }}
+    >
+      {text}
+    </span>
+  );
+}
+
+type ButtonVariant = "default" | "xl-compact";
+
+function BlurredBackgroundButton({
+  text,
+  id,
+  variant = "default",
+}: {
+  text: string;
+  id: string;
+  variant?: ButtonVariant;
+}) {
   const { width } = useWindowSize();
 
   const getImageCount = () => {
@@ -299,9 +387,19 @@ function BlurredBackgroundButton({ text, id }: { text: string; id: string }) {
 
   const imageCount = getImageCount();
 
+  const outerHeightClasses =
+    variant === "xl-compact"
+      ? "relative w-full h-[70px] sm:h-20 md:h-[90px] lg:h-[100px] xl:h-10 2xl:h-[70px] flex items-center justify-center"
+      : "relative w-full h-[70px] sm:h-20 md:h-[90px] lg:h-[100px] xl:h-12 2xl:h-[75px] flex items-center justify-center";
+
+  const buttonHeightClasses =
+    variant === "xl-compact"
+      ? "press-start-2p-regular relative z-10 w-full max-w-[280px] xl:max-w-[340px] 2xl:max-w-[400px] h-10 text-center text-white transition-transform hover:scale-[1.03] active:scale-95 sm:h-[45px] md:h-[50px] lg:h-[55px] xl:h-8"
+      : "press-start-2p-regular relative z-10 w-full max-w-[280px] xl:max-w-[360px] 2xl:max-w-[400px] h-10 text-center text-white transition-transform hover:scale-[1.03] active:scale-95 sm:h-[45px] md:h-[50px] lg:h-[55px] xl:h-9";
+
   return (
     <div className="relative w-full overflow-visible flex items-center justify-center my-2 sm:my-3 px-2 sm:px-3">
-      <div className="relative w-full h-[70px] sm:h-20 md:h-[90px] lg:h-[100px] xl:h-12 2xl:h-[75px] flex items-center justify-center">
+      <div className={outerHeightClasses}>
         <div className="absolute inset-0 flex w-full gap-0.5 blur-[2px] sm:gap-1 sm:blur-sm md:gap-1.5 md:blur-sm z-0 opacity-60">
           {Array.from({ length: imageCount }).map((_, index) => (
             <div className="w-full h-full" key={`blurred-${id}-${index}`}>
@@ -316,7 +414,7 @@ function BlurredBackgroundButton({ text, id }: { text: string; id: string }) {
           ))}
         </div>
         <div
-          className="press-start-2p-regular relative z-10 w-full max-w-[280px] xl:max-w-[360px] 2xl:max-w-[400px] h-10 text-center text-white transition-transform hover:scale-[1.03] active:scale-95 sm:h-[45px] md:h-[50px] lg:h-[55px] xl:h-9 bg-[#B091FF] flex items-center justify-center"
+          className={`${buttonHeightClasses} bg-[#B091FF] flex items-center justify-center`}
           style={{
             boxShadow: "6px 6px 0 0 #4A2C1A",
           }}
@@ -367,6 +465,8 @@ export default function RewardPools() {
   const [sortOption, setSortOption] = useState<SortOption>("recently-added");
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [isCarouselPaused, setCarouselPaused] = useState(false);
+  const autoScrollRef = useRef<number | null>(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -395,13 +495,64 @@ export default function RewardPools() {
   useEffect(() => {
     if (!api) return;
 
-    const interval = setInterval(() => {
-      // Always scroll next - embla-carousel with loop: true will handle seamless looping
+    if (isCarouselPaused) {
+      if (autoScrollRef.current !== null) {
+        window.clearInterval(autoScrollRef.current);
+        autoScrollRef.current = null;
+      }
+      return;
+    }
+
+    autoScrollRef.current = window.setInterval(() => {
       api.scrollNext();
     }, 1500); // Change prize every 1.5 seconds
 
-    return () => clearInterval(interval);
-  }, [api]);
+    return () => {
+      if (autoScrollRef.current !== null) {
+        window.clearInterval(autoScrollRef.current);
+        autoScrollRef.current = null;
+      }
+    };
+  }, [api, isCarouselPaused]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const style = document.createElement("style");
+    style.dataset.rewardScrollStyle = "true";
+    style.textContent = `
+      .reward-pools-scroll {
+        scrollbar-width: thin;
+        scrollbar-color: #b091ff rgba(176, 145, 255, 0.25);
+      }
+
+      .reward-pools-scroll::-webkit-scrollbar {
+        width: 12px;
+      }
+
+      .reward-pools-scroll::-webkit-scrollbar-track {
+        background: rgba(176, 145, 255, 0.22);
+        border-left: 2px solid #4a2c1a;
+        border-radius: 999px;
+      }
+
+      .reward-pools-scroll::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #b091ff 0%, #8d6de8 100%);
+        border-radius: 999px;
+        box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+      }
+
+      .reward-pools-scroll::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #c3aaff 0%, #9a7ff0 100%);
+      }
+    `;
+
+    document.head.appendChild(style);
+
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
 
   const sortedRewards = [...rewardItems].sort((a, b) => {
     switch (sortOption) {
@@ -446,7 +597,7 @@ export default function RewardPools() {
             />
 
             <motion.div
-              className="flex h-full w-full flex-col gap-2 px-2 py-1 pb-4 sm:gap-3 sm:px-3 sm:py-1 sm:pb-6 md:gap-4 md:px-4 md:py-2 md:pb-8 xl:grid xl:grid-cols-3 xl:gap-6 xl:px-6 xl:py-2 xl:pb-10 xl:pt-0 2xl:gap-4 2xl:px-5 2xl:py-1 2xl:pb-8"
+              className="flex h-full w-full flex-col gap-2 px-2 py-1 sm:gap-3 sm:px-3 sm:py-1 sm:pb-6 md:gap-4 md:px-4 md:py-2 md:pb-8 xl:grid xl:grid-cols-3 xl:gap-6 xl:px-6 xl:py-2 pb-0 xl:pt-0 2xl:gap-4 2xl:px-5 2xl:py-1"
               variants={staggerContainer}
             >
               <motion.div
@@ -471,7 +622,7 @@ export default function RewardPools() {
                 {activeTab === "rewards" ? (
                   <motion.div
                     key="rewards"
-                    className="space-y-2 min-h-[300px] sm:min-h-[350px] md:min-h-[400px] lg:min-h-[450px] 2xl:min-h-[380px]"
+                    className="space-y-2 min-h-[300px] sm:min-h-[340px] md:min-h-[380px] lg:min-h-[430px] xl:min-h-0 2xl:min-h-0"
                     initial="hidden"
                     animate="visible"
                     variants={staggerContainer}
@@ -488,6 +639,8 @@ export default function RewardPools() {
                           slidesToScroll: 1,
                         }}
                         className="w-full"
+                        onMouseEnter={() => setCarouselPaused(true)}
+                        onMouseLeave={() => setCarouselPaused(false)}
                       >
                         <CarouselContent className="-ml-3 sm:-ml-4">
                           {rewardItems.map((item, index) => {
@@ -505,14 +658,14 @@ export default function RewardPools() {
                                 className="pl-3 sm:pl-4 basis-1/2 sm:basis-1/3 md:basis-1/4"
                               >
                                 <motion.div
-                                  className={`press-start-2p-regular flex h-full flex-col items-center justify-start gap-3 rounded bg-[#090B12] px-3 py-3 text-center text-[10px] leading-tight text-white transition-transform duration-150 ease-out hover:scale-[1.03] sm:text-xs md:text-sm ${
+                                  className={`press-start-2p-regular flex h-full flex-col items-center justify-start gap-2.5 rounded bg-[#090B12] px-2.5 py-2.5 text-center text-[10px] leading-tight text-white transition-colors duration-200 ease-out hover:bg-[#2B1B5A] hover:text-[#F8F4FF] sm:text-xs md:text-sm ${
                                     isSelected
                                       ? "border border-[#F4B63D] shadow-[0_0_0_2px_#1A1D26]"
                                       : "border border-[#F4B63D]/30 shadow-[0_0_0_2px_#1A1D26/30]"
                                   }`}
                                   variants={fadeInUp}
                                 >
-                                  <div className="relative w-full flex items-center justify-center h-32 sm:h-36 md:h-40 lg:h-44">
+                                  <div className="relative w-full flex items-center justify-center">
                                     <Image
                                       src="/prizelogo.jpg"
                                       alt={item.name}
@@ -527,9 +680,14 @@ export default function RewardPools() {
                                     >
                                       {item.category}
                                     </span>
-                                    <span className="wrap-break-word whitespace-normal min-h-[1.4em] flex items-center justify-center leading-tight text-sm sm:text-base">
-                                      {featuredLabel}
-                                    </span>
+                                    <div className="wrap-break-word whitespace-normal min-h-[1.4em] flex items-center justify-center leading-tight w-full">
+                                      <AutoFitText
+                                        text={featuredLabel}
+                                        maxFontPx={16}
+                                        minFontPx={10}
+                                        className="text-center"
+                                      />
+                                    </div>
                                   </div>
                                 </motion.div>
                               </CarouselItem>
@@ -540,7 +698,7 @@ export default function RewardPools() {
                     </motion.div>
 
                     <motion.div
-                      className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-2"
+                      className="grid w-full grid-cols-1 gap-2"
                       variants={staggerList}
                     >
                       {rewardSummaries.map((summary) => (
@@ -549,7 +707,7 @@ export default function RewardPools() {
                             borderColor="black"
                             className="py-1 sm:py-1 md:py-1 lg:py-1"
                           >
-                            <AlertDescription className="pixelify-sans-500 flex flex-row items-center justify-between gap-2 px-0 py-0 text-black sm:px-0.5 sm:py-0 sm:flex-col sm:items-start sm:gap-0">
+                            <AlertDescription className="pixelify-sans-500 flex flex-row items-center justify-between gap-2 px-0 py-0 text-black sm:px-0.5 sm:py-0">
                               <p className="text-[8px] sm:text-[10px] md:text-xs lg:text-sm">
                                 {summary.label}
                               </p>
@@ -600,7 +758,7 @@ export default function RewardPools() {
                     </motion.div>
 
                     <motion.div
-                      className="space-y-4 sm:space-y-5 md:space-y-6 w-full max-w-full mx-auto max-h-24 sm:max-h-28 lg:max-h-32 overflow-y-auto pr-1"
+                      className="space-y-4 sm:space-y-5 md:space-y-6 w-full max-w-full mx-auto max-h-24 sm:max-h-28 lg:max-h-32 overflow-y-auto pr-1 reward-pools-scroll"
                       variants={staggerList}
                     >
                       {sortedRewards.map((item) => {
@@ -815,8 +973,8 @@ export default function RewardPools() {
                   variants={fadeInUp}
                   className="md:col-span-1 h-full"
                 >
-                  <Alert borderColor="#6043AF" className="h-full">
-                    <AlertDescription className="pixelify-sans-500 flex h-full flex-col gap-2 px-0.5 py-0.5 text-black sm:gap-3 sm:px-1 sm:py-0.5 md:gap-3 md:px-1.5 md:py-0.5 lg:gap-4">
+                  <Alert borderColor="#6043AF" className="md:h-full xl:h-auto">
+                    <AlertDescription className="pixelify-sans-500 flex md:h-full xl:h-auto flex-col gap-2 px-0.5 py-0.5 text-black sm:gap-3 sm:px-1 sm:py-0.5 md:gap-3 md:px-1.5 md:py-0.5 lg:gap-4">
                       <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                         <p className="silkscreen-regular text-sm text-[#2245C5] sm:text-base md:text-lg lg:text-xl xl:text-xl 2xl:text-xl">
                           YOUR NFT
@@ -838,8 +996,8 @@ export default function RewardPools() {
                   variants={fadeInUp}
                   className="md:col-span-1 h-full"
                 >
-                  <Alert borderColor="#6043AF" className="h-full">
-                    <AlertDescription className="pixelify-sans-500 flex h-full flex-col gap-2 px-0.5 py-0.5 text-black sm:gap-3 sm:px-1 sm:py-0.5 md:gap-3 md:px-1 md:py-0.5 lg:gap-4">
+                  <Alert borderColor="#6043AF" className="md:h-full xl:h-auto">
+                    <AlertDescription className="pixelify-sans-500 flex md:h-full xl:h-auto flex-col gap-2 px-0.5 py-0.5 text-black sm:gap-3 sm:px-1 sm:py-0.5 md:gap-3 md:px-1 md:py-0.5 lg:gap-4">
                       <div className="flex w-full items-center justify-between">
                         <p className="silkscreen-regular text-sm text-[#2245C5] sm:text-base md:text-lg lg:text-xl xl:tracking-tight xl:text-xl 2xl:text-xl">
                           COUNTDOWN TIMER
@@ -849,6 +1007,7 @@ export default function RewardPools() {
                       <BlurredBackgroundButton
                         text="STAY TUNED"
                         id="countdown"
+                        variant="xl-compact"
                       />
 
                       <div className="w-full text-[8px] sm:text-[10px] md:text-xs lg:text-sm">
