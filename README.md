@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The app runs at [http://localhost:3000](http://localhost:3000). ESLint/TypeScript guard rails are available via:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm lint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## SEO & Analytics
 
-## Learn More
+- **Dynamic metadata**: Each route exports metadata via `lib/seo.ts`, providing canonical URLs, Open Graph/Twitter previews, and keywords.
+- **Sitemap & robots**: `/sitemap.xml` and `/robots.txt` are generated from the same SEO config, so adding a new route only requires updating `seoRoutes`.
+- **GA4 tracking**: `components/analytics/GA4Analytics.tsx` injects the Google Analytics script once and dispatches page views on every router transition.
 
-To learn more about Next.js, take a look at the following resources:
+### Required environment variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create a `.env.local` file with:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+NEXT_PUBLIC_SITE_URL=https://llamao.xyz
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```
 
-## Deploy on Vercel
+`NEXT_PUBLIC_GA_MEASUREMENT_ID` can be omitted in local development if analytics is not needed.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Performance Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Large hero/background assets now include responsive `sizes` hints to cut transfer size on mobile and improve LCP.
+- Shared client-only page content moved into `components/page-content/*` so server routes stay lean while animations still run on the client.
+- `reward-pools` media assets were annotated with precise sizing to reduce layout shift inside the carousel layout.
+
+## Deployment
+
+The project is a standard Next.js App Router app and can be deployed on any Node-compatible platform (Vercel recommended):
+
+```bash
+pnpm build
+pnpm start
+```
+
+Ensure the production environment exposes the same two environment variables listed above so metadata and analytics resolve to the correct domain.

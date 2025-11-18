@@ -16,6 +16,7 @@ const Logo = () => {
         alt="LLAMA Logo"
         width={882}
         height={369}
+        sizes="(max-width: 768px) 90vw, 600px"
         className="w-full h-auto"
         priority
       />

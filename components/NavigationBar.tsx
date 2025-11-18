@@ -71,7 +71,8 @@ const NavigationBar = () => {
           src={"/nav-background.svg"}
           alt=""
           fill
-          objectFit="contain"
+          sizes="100vw"
+          style={{ objectFit: "contain" }}
           loading="lazy"
           aria-hidden
           className="pointer-events-none select-none object-contain z-40 hidden md:block"
@@ -80,7 +81,8 @@ const NavigationBar = () => {
           src={"/nav-background-mobile.svg"}
           alt=""
           fill
-          objectFit="contain"
+          sizes="100vw"
+          style={{ objectFit: "contain" }}
           loading="lazy"
           aria-hidden
           className="pointer-events-none select-none object-contain z-40 md:hidden"
@@ -105,7 +107,7 @@ const NavigationBar = () => {
           >
             <span
               className={`block h-[3px] w-6 rounded-sm bg-[#1F2358] transition-transform duration-200 ${
-                isMenuOpen ? "translate-y-[6px] rotate-45" : ""
+                isMenuOpen ? "translate-y-1.5 rotate-45" : ""
               }`}
             />
             <span
@@ -115,7 +117,7 @@ const NavigationBar = () => {
             />
             <span
               className={`block h-[3px] w-6 rounded-sm bg-[#1F2358] transition-transform duration-200 ${
-                isMenuOpen ? "-translate-y-[6px] -rotate-45" : ""
+                isMenuOpen ? "-translate-y-1.5 -rotate-45" : ""
               }`}
             />
           </motion.button>

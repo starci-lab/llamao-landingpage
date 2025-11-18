@@ -11,6 +11,7 @@ const About = () => {
             alt="des-img"
             width={989}
             height={411}
+            sizes="(max-width: 1024px) 100vw, 640px"
             className="w-full h-full object-cover object-bottom mb-4 rounded-md"
           />
         </div>

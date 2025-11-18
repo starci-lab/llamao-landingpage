@@ -10,7 +10,7 @@ const socialLinks = [
     alt: "X",
   },
   {
-    href: "discord.com/invite/llamao",
+    href: "https://discord.com/invite/llamao",
     src: "/discord.png",
     alt: "Discord",
   },

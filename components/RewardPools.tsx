@@ -329,6 +329,7 @@ function BlurredBackgroundButton({
                 alt="llamao"
                 width={424}
                 height={424}
+                sizes="(max-width: 1024px) 25vw, 90px"
                 className="h-full w-full object-cover"
               />
             </div>
@@ -514,6 +515,7 @@ export default function RewardPools() {
               alt="rewards-logo"
               width={514}
               height={100}
+              sizes="(max-width: 768px) 70vw, 420px"
               className="absolute left-[50%] -top-12 -translate-x-1/2 w-[250px] sm:-top-14 sm:w-[300px] md:-top-16 md:w-[350px] lg:-top-15 lg:w-[400px] xl:w-[514px] 2xl:-top-10 2xl:w-[460px]"
             />
 
@@ -592,6 +594,7 @@ export default function RewardPools() {
                                       alt={item.name}
                                       width={200}
                                       height={200}
+                                      sizes="(max-width: 768px) 45vw, 200px"
                                       className="h-full w-auto max-h-full object-contain"
                                     />
                                   </div>
@@ -669,6 +672,7 @@ export default function RewardPools() {
                             alt="arrow"
                             width={20}
                             height={12}
+                            sizes="24px"
                             className="pointer-events-none absolute right-4 top-1/2 h-auto w-3 -translate-y-1/2 sm:right-2 sm:w-4 md:w-5 lg:w-6"
                           />
                         </div>
@@ -751,6 +755,7 @@ export default function RewardPools() {
                                   alt="search"
                                   width={20}
                                   height={20}
+                                  sizes="20px"
                                   className="h-auto w-full"
                                 />
                               </div>
@@ -822,6 +827,7 @@ export default function RewardPools() {
                                           alt="llamao"
                                           width={100}
                                           height={100}
+                                          sizes="64px"
                                           className="h-auto w-full"
                                         />
                                       </div>
@@ -871,6 +877,7 @@ export default function RewardPools() {
                             alt="participants coming soon"
                             width={220}
                             height={48}
+                            sizes="(max-width: 640px) 60vw, 220px"
                             className="h-auto w-full max-w-[140px] select-none sm:max-w-[180px] md:max-w-[200px] lg:max-w-[220px]"
                           />
                           <p className="text-[8px] sm:text-[10px] md:text-xs lg:text-sm px-2">
