@@ -3,7 +3,8 @@ import type { Metadata, MetadataRoute } from "next";
 const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL || "https://llamao.xyz"
 ).replace(/\/$/, "");
-const DEFAULT_OG_IMAGE = "/logo.png";
+const DEFAULT_OG_IMAGE = "/llamao_crop32x32.png";
+const DEFAULT_OG_ALT = "LLAMAO pixel avatar";
 const OG_IMAGE_SIZE = { width: 1200, height: 630 } as const;
 
 type RouteSeoConfig = {
@@ -139,7 +140,7 @@ export const baseMetadata: Metadata = {
     description:
       "Escape the emotional pressure of Web3. Llamaoism guides purposeful action and inner strength for long-term confidence and authenticity.",
     url: SITE_URL,
-    images: [buildOgImage(seoRoutes.home.ogImage, seoRoutes.home.ogAlt)],
+    images: [buildOgImage(DEFAULT_OG_IMAGE, DEFAULT_OG_ALT)],
   },
   twitter: {
     card: "summary_large_image",
@@ -148,7 +149,7 @@ export const baseMetadata: Metadata = {
       "Mindfulness-first IP guiding Web3 builders with practical rituals and emotional stability.",
     creator: "@llamao_",
     site: "@llamao_",
-    images: [absoluteUrl(seoRoutes.home.ogImage || DEFAULT_OG_IMAGE)],
+    images: [absoluteUrl(DEFAULT_OG_IMAGE)],
   },
   robots: {
     index: true,
@@ -156,6 +157,11 @@ export const baseMetadata: Metadata = {
   },
   alternates: {
     canonical: SITE_URL,
+  },
+  icons: {
+    icon: DEFAULT_OG_IMAGE,
+    shortcut: DEFAULT_OG_IMAGE,
+    apple: DEFAULT_OG_IMAGE,
   },
 };
 
