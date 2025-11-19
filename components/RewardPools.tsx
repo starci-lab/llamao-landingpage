@@ -53,19 +53,22 @@ type RewardItem = {
   displayQuantity: string;
   quantityValue: number | null;
   order: number;
+  imageSrc: string;
 };
 
 const numberFormatter = new Intl.NumberFormat("en-US");
+const DEFAULT_REWARD_IMAGE = "/rewards/NFT Llamao 1.png";
 
 const rewardItems: RewardItem[] = [
   {
-    id: "nft-llamao-rare",
+    id: "nft-llamao-1",
     category: "NFT",
-    name: "Llamao (Rare NFT)",
+    name: "Llamao",
     featuredName: "Llamao",
-    displayQuantity: numberFormatter.format(10),
-    quantityValue: 10,
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
     order: 1,
+    imageSrc: "/rewards/NFT Llamao 1.png",
   },
   {
     id: "token-mon",
@@ -74,6 +77,27 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(10000),
     quantityValue: 10000,
     order: 2,
+    imageSrc: "/rewards/Mon.png",
+  },
+  {
+    id: "nft-llamao-2",
+    category: "NFT",
+    name: "Llamao",
+    featuredName: "Llamao",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 3,
+    imageSrc: "/rewards/NFT Llamao 2.png",
+  },
+  {
+    id: "nft-llamao-4",
+    category: "NFT",
+    name: "Llamao",
+    featuredName: "Llamao",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 4,
+    imageSrc: "/rewards/NFT Llamao 4.png",
   },
   {
     id: "token-pengu",
@@ -81,103 +105,28 @@ const rewardItems: RewardItem[] = [
     name: "$PENGU",
     displayQuantity: numberFormatter.format(12500),
     quantityValue: 12500,
-    order: 3,
-  },
-  {
-    id: "nft-steady-teddy",
-    category: "NFT",
-    name: "Steady teddy",
-    displayQuantity: numberFormatter.format(1),
-    quantityValue: 1,
-    order: 4,
-  },
-  {
-    id: "nft-nakamigos",
-    category: "NFT",
-    name: "Nakamigos",
-    displayQuantity: numberFormatter.format(1),
-    quantityValue: 1,
     order: 5,
+    imageSrc: "/rewards/$PENGU.jpeg",
   },
   {
-    id: "token-dood",
-    category: "Token",
-    name: "$DOOD",
-    displayQuantity: numberFormatter.format(30000),
-    quantityValue: 30000,
+    id: "nft-llamao-5",
+    category: "NFT",
+    name: "Llamao",
+    featuredName: "Llamao",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
     order: 6,
+    imageSrc: "/rewards/NFT Llamao 5.png",
   },
   {
-    id: "token-ape",
-    category: "Token",
-    name: "$APE",
-    displayQuantity: numberFormatter.format(500),
-    quantityValue: 500,
+    id: "nft-llamao-6",
+    category: "NFT",
+    name: "Llamao",
+    featuredName: "Llamao",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
     order: 7,
-  },
-  {
-    id: "nft-beanz",
-    category: "NFT",
-    name: "Beanz",
-    displayQuantity: numberFormatter.format(1),
-    quantityValue: 1,
-    order: 8,
-  },
-  {
-    id: "nft-gobs-on-ape",
-    category: "NFT",
-    name: "Gobs On Ape",
-    displayQuantity: numberFormatter.format(1),
-    quantityValue: 1,
-    order: 9,
-  },
-  {
-    id: "nft-giga-rom",
-    category: "NFT",
-    name: "Giga Rom",
-    displayQuantity: numberFormatter.format(1),
-    quantityValue: 1,
-    order: 10,
-  },
-  {
-    id: "nft-fugz",
-    category: "NFT",
-    name: "Fugz",
-    displayQuantity: numberFormatter.format(1),
-    quantityValue: 1,
-    order: 11,
-  },
-  {
-    id: "nft-memeland-potatoz",
-    category: "NFT",
-    name: "Memeland Potatoz",
-    displayQuantity: numberFormatter.format(1),
-    quantityValue: 1,
-    order: 12,
-  },
-  {
-    id: "nft-moonbirds-mythics",
-    category: "NFT",
-    name: "Moonbirds Mythics",
-    displayQuantity: numberFormatter.format(1),
-    quantityValue: 1,
-    order: 13,
-  },
-  {
-    id: "token-bera",
-    category: "Token",
-    name: "$BERA",
-    displayQuantity: numberFormatter.format(120),
-    quantityValue: 120,
-    order: 14,
-  },
-  {
-    id: "token-bonk",
-    category: "Token",
-    name: "$BONK",
-    displayQuantity: numberFormatter.format(150000000),
-    quantityValue: 150000000,
-    order: 15,
+    imageSrc: "/rewards/NFT Llamao 6.png",
   },
   {
     id: "token-aster",
@@ -185,7 +134,28 @@ const rewardItems: RewardItem[] = [
     name: "$ASTER",
     displayQuantity: numberFormatter.format(170),
     quantityValue: 170,
-    order: 16,
+    order: 8,
+    imageSrc: "/rewards/$ASTER.jpg",
+  },
+  {
+    id: "nft-llamao-7",
+    category: "NFT",
+    name: "Llamao",
+    featuredName: "Llamao",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 9,
+    imageSrc: "/rewards/NFT Llamao 7.png",
+  },
+  {
+    id: "nft-llamao-8",
+    category: "NFT",
+    name: "Llamao",
+    featuredName: "Llamao",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 10,
+    imageSrc: "/rewards/NFT Llamao 8.png",
   },
   {
     id: "token-pepe",
@@ -193,7 +163,136 @@ const rewardItems: RewardItem[] = [
     name: "$PEPE",
     displayQuantity: numberFormatter.format(32000000),
     quantityValue: 32000000,
+    order: 11,
+    imageSrc: "/rewards/pepe.png",
+  },
+  {
+    id: "token-bonk",
+    category: "Token",
+    name: "$BONK",
+    displayQuantity: numberFormatter.format(150000000),
+    quantityValue: 150000000,
+    order: 12,
+    imageSrc: "/rewards/BONK.png",
+  },
+  {
+    id: "token-dood",
+    category: "Token",
+    name: "$DOOD",
+    displayQuantity: numberFormatter.format(30000),
+    quantityValue: 30000,
+    order: 13,
+    imageSrc: "/rewards/$DOOD.jpeg",
+  },
+  {
+    id: "nft-llamao-9",
+    category: "NFT",
+    name: "Llamao",
+    featuredName: "Llamao",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 14,
+    imageSrc: "/rewards/NFT Llamao 9.png",
+  },
+  {
+    id: "nft-llamao-10",
+    category: "NFT",
+    name: "Llamao",
+    featuredName: "Llamao",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 15,
+    imageSrc: "/rewards/NFT Llamao 10.png",
+  },
+  {
+    id: "token-ape",
+    category: "Token",
+    name: "$APE",
+    displayQuantity: numberFormatter.format(500),
+    quantityValue: 500,
+    order: 16,
+    imageSrc: "/rewards/APE.png",
+  },
+  {
+    id: "token-bera",
+    category: "Token",
+    name: "$BERA",
+    displayQuantity: numberFormatter.format(120),
+    quantityValue: 120,
     order: 17,
+    imageSrc: "/rewards/BERA.png",
+  },
+  {
+    id: "nft-steady-teddy",
+    category: "NFT",
+    name: "Steady teddy",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 18,
+    imageSrc: DEFAULT_REWARD_IMAGE,
+  },
+  {
+    id: "nft-nakamigos",
+    category: "NFT",
+    name: "Nakamigos",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 19,
+    imageSrc: DEFAULT_REWARD_IMAGE,
+  },
+  {
+    id: "nft-beanz",
+    category: "NFT",
+    name: "Beanz",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 20,
+    imageSrc: DEFAULT_REWARD_IMAGE,
+  },
+  {
+    id: "nft-gobs-on-ape",
+    category: "NFT",
+    name: "Gobs On Ape",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 21,
+    imageSrc: DEFAULT_REWARD_IMAGE,
+  },
+  {
+    id: "nft-gigaverse-roms",
+    category: "NFT",
+    name: "Gigaverse ROMs",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 22,
+    imageSrc: DEFAULT_REWARD_IMAGE,
+  },
+  {
+    id: "nft-fugz",
+    category: "NFT",
+    name: "Fugz",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 23,
+    imageSrc: DEFAULT_REWARD_IMAGE,
+  },
+  {
+    id: "nft-memeland-potatoz",
+    category: "NFT",
+    name: "Memeland Potatoz",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 24,
+    imageSrc: DEFAULT_REWARD_IMAGE,
+  },
+  {
+    id: "nft-moonbirds-mythics",
+    category: "NFT",
+    name: "Moonbirds Mythics",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 25,
+    imageSrc: DEFAULT_REWARD_IMAGE,
   },
   {
     id: "token-daks",
@@ -201,7 +300,8 @@ const rewardItems: RewardItem[] = [
     name: "$DAKS",
     displayQuantity: "xxx",
     quantityValue: null,
-    order: 18,
+    order: 26,
+    imageSrc: "/rewards/Dak.avif",
   },
   {
     id: "token-chog",
@@ -209,7 +309,17 @@ const rewardItems: RewardItem[] = [
     name: "$CHOG",
     displayQuantity: "xxx",
     quantityValue: null,
-    order: 19,
+    order: 27,
+    imageSrc: "/rewards/Chog.avif",
+  },
+  {
+    id: "nft-sappy-seal",
+    category: "NFT",
+    name: "Sappy Seal",
+    displayQuantity: numberFormatter.format(1),
+    quantityValue: 1,
+    order: 28,
+    imageSrc: DEFAULT_REWARD_IMAGE,
   },
 ];
 
@@ -568,27 +678,27 @@ export default function RewardPools() {
                                   }`}
                                   variants={fadeInUp}
                                 >
-                                  <div className="relative w-full flex items-center justify-center">
+                                  <div className="relative w-full flex items-center justify-center h-24 sm:h-28 md:h-32 lg:h-36">
                                     <Image
-                                      src="/prizelogo.jpg"
+                                      src={
+                                        item.imageSrc || DEFAULT_REWARD_IMAGE
+                                      }
                                       alt={item.name}
                                       width={200}
                                       height={200}
                                       sizes="(max-width: 768px) 45vw, 200px"
-                                      className="h-full w-auto max-h-full object-contain"
+                                      className="max-h-full w-auto object-contain"
                                     />
                                   </div>
-                                  <div className="flex flex-col gap-1 shrink-0 w-full text-center px-1">
+                                  <div className="flex flex-col gap-1.5 shrink-0 w-full text-center px-1 min-h-20">
                                     <span
-                                      className={`text-[9px] uppercase tracking-wide px-2 py-1 rounded ${badgeClasses}`}
+                                      className={`text-[9px] uppercase tracking-wide px-2 py-1 rounded ${badgeClasses} block w-full`}
                                     >
                                       {item.category}
                                     </span>
-                                    <div className="w-full min-h-[2.2em] flex items-center justify-center px-1">
-                                      <p className="text-white text-[11px] sm:text-xs md:text-sm leading-tight text-center wrap-break-word whitespace-normal">
-                                        {featuredLabel}
-                                      </p>
-                                    </div>
+                                    <p className="text-white text-[11px] sm:text-xs md:text-sm leading-tight text-center wrap-break-word whitespace-normal flex items-center justify-center w-full min-h-[2.4em] px-1">
+                                      {featuredLabel}
+                                    </p>
                                   </div>
                                 </motion.div>
                               </CarouselItem>
