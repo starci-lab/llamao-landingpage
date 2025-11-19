@@ -378,12 +378,6 @@ const participantRows: ParticipantRow[] = [
     totalOwned: "3 NFTs",
     dateAdded: "10/28/2025",
   },
-  {
-    id: "participant-6",
-    address: "0x61DA...AA77",
-    totalOwned: "17 NFTs",
-    dateAdded: "11/02/2025",
-  },
 ];
 
 const hasParticipants = participantRows.length > 0;
