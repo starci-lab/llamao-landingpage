@@ -6,14 +6,6 @@ import { useMemo } from "react";
 import Background from "./Background";
 import NavigationBar from "./NavigationBar";
 
-const mainVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.7, ease: "easeOut" },
-  },
-};
-
 const stackVariants: Variants = {
   hidden: { opacity: 0, y: 28 },
   visible: {
@@ -36,10 +28,7 @@ export default function PageLayout({
   );
 
   return (
-    <motion.main
-      initial="hidden"
-      animate="visible"
-      variants={mainVariants}
+    <main
       className={`relative w-full ${
         isRewardPoolsPage
           ? "h-auto min-h-screen overflow-y-auto overflow-x-clip reward-pools-scroll"
@@ -57,14 +46,15 @@ export default function PageLayout({
         />
       )}
 
-      <motion.div
-        variants={stackVariants}
+      <div
         className={`h-full flex flex-col justify-between w-[95%] mx-auto relative xl:origin-top 2xl:scale-100 ${
           isRewardPoolsPage ? "xl:scale-[0.85]" : "xl:scale-[0.9]"
         }`}
         style={{ zIndex: 40 }}
       >
         <motion.div
+          initial="hidden"
+          animate="visible"
           variants={stackVariants}
           className="flex flex-col items-center mx-auto w-full mt-3 relative"
           style={{ zIndex: 100 }}
@@ -72,19 +62,19 @@ export default function PageLayout({
           <NavigationBar />
         </motion.div>
         <motion.div
+          initial="hidden"
+          animate="visible"
           variants={stackVariants}
           className={`flex-1 flex flex-col ${
             isRewardPoolsPage
               ? "items-center justify-start"
               : "items-center justify-between"
           } w-full mx-auto relative`}
-          initial="hidden"
-          animate="visible"
           style={{ zIndex: 50 }}
         >
           {children}
         </motion.div>
-      </motion.div>
-    </motion.main>
+      </div>
+    </main>
   );
 }
