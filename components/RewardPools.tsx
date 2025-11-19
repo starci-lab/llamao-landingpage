@@ -347,16 +347,44 @@ const participantFields = [
   { key: "dateAdded", label: "Date Added" },
 ] as const;
 
-const participantRows: ParticipantRow[] = Array.from(
-  { length: 4 },
-  (_, index) => ({
-    id: `participant-${index}`,
-    address: "0x...aaaa",
-    totalOwned: "5000 NFTs",
-    totalPurchase: "5000 NFTs",
-    dateAdded: "01/01/2026",
-  })
-);
+const participantRows: ParticipantRow[] = [
+  {
+    id: "participant-1",
+    address: "0xA19F...7D21",
+    totalOwned: "12 NFTs",
+    dateAdded: "10/05/2025",
+  },
+  {
+    id: "participant-2",
+    address: "0x4B33...C0DE",
+    totalOwned: "8 NFTs",
+    dateAdded: "10/11/2025",
+  },
+  {
+    id: "participant-3",
+    address: "0x9C01...FFAA",
+    totalOwned: "5 NFTs",
+    dateAdded: "10/18/2025",
+  },
+  {
+    id: "participant-4",
+    address: "0x752E...BEEF",
+    totalOwned: "21 NFTs",
+    dateAdded: "10/23/2025",
+  },
+  {
+    id: "participant-5",
+    address: "0xE18B...CC01",
+    totalOwned: "3 NFTs",
+    dateAdded: "10/28/2025",
+  },
+  {
+    id: "participant-6",
+    address: "0x61DA...AA77",
+    totalOwned: "17 NFTs",
+    dateAdded: "11/02/2025",
+  },
+];
 
 const hasParticipants = participantRows.length > 0;
 
