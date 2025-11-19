@@ -23,7 +23,6 @@ export default function GA4Analytics() {
   }, [pathname, searchParams]);
 
   useEffect(() => {
-    if (!GA_MEASUREMENT_ID) return;
     if (typeof window === "undefined") return;
     if (typeof window.gtag !== "function") return;
 
@@ -31,15 +30,6 @@ export default function GA4Analytics() {
       page_path: pagePath,
     });
   }, [pagePath]);
-
-  if (!GA_MEASUREMENT_ID) {
-    if (process.env.NODE_ENV === "development") {
-      console.info(
-        "GA4 measurement ID missing. Set NEXT_PUBLIC_GA_MEASUREMENT_ID to enable analytics."
-      );
-    }
-    return null;
-  }
 
   return (
     <>
