@@ -57,7 +57,7 @@ type RewardItem = {
 };
 
 const numberFormatter = new Intl.NumberFormat("en-US");
-const DEFAULT_REWARD_IMAGE = "/rewards/NFT Llamao 1.png";
+const DEFAULT_REWARD_IMAGE = "/rewards/1.jpg";
 
 const rewardItems: RewardItem[] = [
   {
@@ -68,7 +68,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 1,
-    imageSrc: "/rewards/NFT Llamao 1.png",
+    imageSrc: "/rewards/1.jpg",
   },
   {
     id: "token-mon",
@@ -77,7 +77,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(10000),
     quantityValue: 10000,
     order: 2,
-    imageSrc: "/rewards/Mon.png",
+    imageSrc: "/rewards/mon.png",
   },
   {
     id: "nft-llamao-2",
@@ -87,7 +87,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 3,
-    imageSrc: "/rewards/NFT Llamao 2.png",
+    imageSrc: "/rewards/3.jpg",
   },
   {
     id: "nft-llamao-4",
@@ -97,7 +97,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 4,
-    imageSrc: "/rewards/NFT Llamao 4.png",
+    imageSrc: "/rewards/4.jpg",
   },
   {
     id: "token-pengu",
@@ -106,7 +106,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(12500),
     quantityValue: 12500,
     order: 5,
-    imageSrc: "/rewards/$PENGU.jpeg",
+    imageSrc: "/rewards/pengu.png",
   },
   {
     id: "nft-llamao-5",
@@ -116,7 +116,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 6,
-    imageSrc: "/rewards/NFT Llamao 5.png",
+    imageSrc: "/rewards/6.jpg",
   },
   {
     id: "nft-llamao-6",
@@ -126,7 +126,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 7,
-    imageSrc: "/rewards/NFT Llamao 6.png",
+    imageSrc: "/rewards/7.jpg",
   },
   {
     id: "token-aster",
@@ -135,7 +135,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(170),
     quantityValue: 170,
     order: 8,
-    imageSrc: "/rewards/$ASTER.jpg",
+    imageSrc: "/rewards/Aster.png",
   },
   {
     id: "nft-llamao-7",
@@ -145,7 +145,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 9,
-    imageSrc: "/rewards/NFT Llamao 7.png",
+    imageSrc: "/rewards/8.jpg",
   },
   {
     id: "nft-llamao-8",
@@ -155,7 +155,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 10,
-    imageSrc: "/rewards/NFT Llamao 8.png",
+    imageSrc: "/rewards/10.jpg",
   },
   {
     id: "token-pepe",
@@ -173,7 +173,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(150000000),
     quantityValue: 150000000,
     order: 12,
-    imageSrc: "/rewards/BONK.png",
+    imageSrc: "/rewards/Bonk.png",
   },
   {
     id: "token-dood",
@@ -182,7 +182,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(30000),
     quantityValue: 30000,
     order: 13,
-    imageSrc: "/rewards/$DOOD.jpeg",
+    imageSrc: "/rewards/Dood.png",
   },
   {
     id: "nft-llamao-9",
@@ -192,7 +192,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 14,
-    imageSrc: "/rewards/NFT Llamao 9.png",
+    imageSrc: "/rewards/11.jpg",
   },
   {
     id: "nft-llamao-10",
@@ -202,7 +202,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 15,
-    imageSrc: "/rewards/NFT Llamao 10.png",
+    imageSrc: "/rewards/12.jpg",
   },
   {
     id: "token-ape",
@@ -220,7 +220,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(120),
     quantityValue: 120,
     order: 17,
-    imageSrc: "/rewards/BERA.png",
+    imageSrc: "/rewards/Bera.png",
   },
   {
     id: "nft-steady-teddy",
@@ -229,7 +229,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 18,
-    imageSrc: DEFAULT_REWARD_IMAGE,
+    imageSrc: "/rewards/Steady Teddy.avif",
   },
   {
     id: "nft-nakamigos",
@@ -238,7 +238,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 19,
-    imageSrc: DEFAULT_REWARD_IMAGE,
+    imageSrc: "/rewards/Nakamigos.avif",
   },
   {
     id: "nft-beanz",
@@ -247,7 +247,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 20,
-    imageSrc: DEFAULT_REWARD_IMAGE,
+    imageSrc: "/rewards/Beanz.avif",
   },
   {
     id: "nft-gobs-on-ape",
@@ -256,7 +256,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 21,
-    imageSrc: DEFAULT_REWARD_IMAGE,
+    imageSrc: "/rewards/Gobs On Ape.svg",
   },
   {
     id: "nft-gigaverse-roms",
@@ -265,7 +265,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 22,
-    imageSrc: DEFAULT_REWARD_IMAGE,
+    imageSrc: "/rewards/Gigarom.avif",
   },
   {
     id: "nft-fugz",
@@ -274,7 +274,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 23,
-    imageSrc: DEFAULT_REWARD_IMAGE,
+    imageSrc: "/rewards/fugz.webp",
   },
   {
     id: "nft-memeland-potatoz",
@@ -283,7 +283,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 24,
-    imageSrc: DEFAULT_REWARD_IMAGE,
+    imageSrc: "/rewards/Memeland.webp",
   },
   {
     id: "nft-moonbirds-mythics",
@@ -292,7 +292,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 25,
-    imageSrc: DEFAULT_REWARD_IMAGE,
+    imageSrc: "/rewards/Moonbird.avif",
   },
   {
     id: "token-daks",
@@ -301,7 +301,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: "xxx",
     quantityValue: null,
     order: 26,
-    imageSrc: "/rewards/Dak.avif",
+    imageSrc: "/rewards/Daks.png",
   },
   {
     id: "token-chog",
@@ -310,7 +310,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: "xxx",
     quantityValue: null,
     order: 27,
-    imageSrc: "/rewards/Chog.avif",
+    imageSrc: "/rewards/Chog.png",
   },
   {
     id: "nft-sappy-seal",
@@ -319,7 +319,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(1),
     quantityValue: 1,
     order: 28,
-    imageSrc: DEFAULT_REWARD_IMAGE,
+    imageSrc: "/rewards/Sappy Seal.avif",
   },
 ];
 
