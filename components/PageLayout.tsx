@@ -32,7 +32,7 @@ export default function PageLayout({
       className={`relative w-full ${
         isRewardPoolsPage
           ? "h-auto min-h-screen overflow-y-auto overflow-x-clip reward-pools-scroll"
-          : "h-screen overflow-x-clip min-h-screen"
+          : "h-screen min-h-screen overflow-x-clip overflow-y-hidden"
       }`}
     >
       <Background />
