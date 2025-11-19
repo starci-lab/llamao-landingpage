@@ -77,7 +77,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(10000),
     quantityValue: 10000,
     order: 2,
-    imageSrc: "/rewards/mon.png",
+    imageSrc: "/rewards/Mon.png",
   },
   {
     id: "nft-llamao-2",
@@ -173,7 +173,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(150000000),
     quantityValue: 150000000,
     order: 12,
-    imageSrc: "/rewards/Bonk.png",
+    imageSrc: "/rewards/BONK.png",
   },
   {
     id: "token-dood",
@@ -220,7 +220,7 @@ const rewardItems: RewardItem[] = [
     displayQuantity: numberFormatter.format(120),
     quantityValue: 120,
     order: 17,
-    imageSrc: "/rewards/Bera.png",
+    imageSrc: "/rewards/BERA.png",
   },
   {
     id: "nft-steady-teddy",
